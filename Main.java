@@ -20,7 +20,7 @@ public class Main
     event_types.add("Educational");
     event_types.add("Social");
     event_types.add("Gaming");
-    event_types.add("Alcohol");
+    event_types.add("water");
     
     // Event event = ???
     events.add(new Event(event_name, start_day, start_month, start_year, duration, event_types, format));
