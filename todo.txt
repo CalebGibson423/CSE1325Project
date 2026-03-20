@@ -1,0 +1,23 @@
+Todo list:
+- event class
+    - time
+
+- calendar class that stores events
+
+- user interface
+    - add events
+    - delete events
+    - view events
+    
+- sort events
+    - sort by soonest date/time
+    - be able to categorize by type
+    - Delete events if date has passed
+    - Put events in a file to save
+
+- Extra Functions:
+    - Display events depending on location (Show nearby events)
+    - login function
+    - Adding event descriptions
+    - Allow users to pick which events to see within an allocated time
+    

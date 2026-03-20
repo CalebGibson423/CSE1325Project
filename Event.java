@@ -1,5 +1,6 @@
 import java.time.*;
 import java.time.format.*;
+import java.util.*;
 public class Event 
 {
     private String name;
@@ -51,7 +52,7 @@ public class Event
     
     public ArrayList<String> getTypes()
     {
-        return types;
+        return type;
     }
 
     public String getFormat()
@@ -93,6 +94,27 @@ public class Event
     public void setFormat(String newFormat)
     {
         format = newFormat;
+    }  
+
+    public String toString()
+    {
+        String eventTypes = "";
+        for(int i = 0; i < type.size(); i++)
+        {
+            eventTypes += type.get(i);
+            if (i < type.size() - 1)
+            {
+                eventTypes += ", ";
+            }
+        }
+
+        String eventInfo = (
+            "Name: " + name + "\n" + 
+            "Date: " + month + "/" + day + "/" + year + "\n" +
+            "Duration: " + duration + " hours\n" +
+            "Type(s): " + eventTypes + "\n" +
+            "Format: " + format + "\n" );
+        return eventInfo;
     }
 }
 
