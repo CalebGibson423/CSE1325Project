@@ -1,6 +1,6 @@
 import java.util.*;
-import java.time.*;
-import java.time.format.*;
+//import java.time.*;
+//import java.time.format.*;
 
 public class Main
 {
@@ -26,5 +26,6 @@ public class Main
     events.add(new Event(event_name, start_day, start_month, start_year, duration, event_types, format));
     System.out.println(events.get(0));
     
+    input.close();
   }
 }
