@@ -1,22 +1,19 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.time.*;
 
 public class FileManager {
 
-    public static void saveEvents(ArrayList<Event> events){
+    public static void saveEvents(LinkedList<Event> events){
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("events.txt"));) {
 
             for(int i = 0; i < events.size(); i++){
                 writer.write(
                     events.get(i).getName() + "/" +
-                    events.get(i).getDay() + "/" +
-                    events.get(i).getMonth() + "/" +
-                    events.get(i).getYear() + "/" +
+                    events.get(i).getDate().format(Constants.dateFormatter) + "/" +
+                    events.get(i).getTime().format(Constants.timeFormatter) + "/" +
                     events.get(i).getDuration() + "/" +
                     String.join(",", events.get(i).getTypes()) + "/" +
                     events.get(i).getFormat()
@@ -42,21 +39,20 @@ public class FileManager {
                 String[] eventParts = line.split("/");
 
                 String name = eventParts[0];
-                int day = Integer.parseInt(eventParts[1]);
-                int month = Integer.parseInt(eventParts[2]);
-                int year = Integer.parseInt(eventParts[3]);
-                double duration = Double.parseDouble(eventParts[4]);
+                LocalDate date = LocalDate.parse(eventParts[1], Constants.dateFormatter);
+                LocalTime time = LocalTime.parse(eventParts[2], Constants.timeFormatter);
+                double duration = Double.parseDouble(eventParts[3]);
 
-                String[] typesArray = eventParts[5].split(",");
-                ArrayList<String> typeArrayList = new ArrayList<>();
+                String[] typesArray = eventParts[4].split(",");
+                ArrayList<String> typesList = new ArrayList<>();
 
                 for(int i = 0; i < typesArray.length; i++){
-                    typeArrayList.add(typesArray[i]);
+                    typesList.add(typesArray[i]);
                 }
               
-                String format = eventParts[6];
+                String format = eventParts[5];
 
-                Event newEvent = new Event(name, day, month, year, duration, typeArrayList, format);
+                Event newEvent = new Event(name, date, time, duration, typesList, format);
                 events.add(newEvent);
             }
 

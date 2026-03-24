@@ -1,25 +1,22 @@
-//import java.time.*;
-//import java.time.format.*;
+import java.time.*;
 import java.util.*;
 
 public class Event 
 {
     private String name;
-    private int day;
-    private int month;
-    private int year;
+    private LocalDate date;
+    private LocalTime time;
     private double duration;
     private ArrayList<String> type;
     //Corporate & Business, Social & Personal, Community & Cultural, Educational & Academic, Sports & Recreational
     private String format;
     //In-person, Virtual, Hybrid
     
-    public Event(String name, int day, int month, int year, double duration, ArrayList<String> type, String format)
+    public Event(String name, LocalDate date, LocalTime time, double duration, ArrayList<String> type, String format)
     {
         this.name = name;
-        this.day = day;
-        this.month = month;
-        this.year = year;
+        this.date = date;
+        this.time = time;
         this.duration = duration;
         this.type = type;
         this.format = format;   
@@ -31,19 +28,14 @@ public class Event
         return name;
     }
     
-    public int getDay()
+    public LocalDate getDate()
     {
-        return day;
+        return date;
     }
 
-    public int getMonth()
+    public LocalTime getTime()
     {
-        return month;
-    }
-    
-    public int getYear()
-    {
-        return year;    
+        return time;
     }
 
     public double getDuration()
@@ -67,19 +59,14 @@ public class Event
         name = newName;
     }
     
-    public void setDay(int newDay)
+    public void setDate(LocalDate newDate)
     {
-        day = newDay;
+        date = newDate;
     }
 
-    public void setMonth(int newMonth)
+    public void setMonth(LocalTime newTime)
     {
-        month = newMonth;
-    }
-    
-    public void setYear(int newYear)
-    {
-        year = newYear;  
+        time = newTime;
     }
 
     public void setDuration(double newDuration)
@@ -111,7 +98,8 @@ public class Event
 
         String eventInfo = (
             "Name: " + name + "\n" + 
-            "Date: " + month + "/" + day + "/" + year + "\n" +
+            "Date: " + date.format(Constants.dateFormatter) + "\n" +
+            "Time: " + time.format(Constants.timeFormatter) + "\n" +
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
             "Format: " + format + "\n" );
