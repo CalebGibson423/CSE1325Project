@@ -1,4 +1,4 @@
-package cse1325project;
+package CSE1325Project;
 import java.time.format.DateTimeFormatter;
 
 public class Constants {

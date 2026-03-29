@@ -1,11 +1,11 @@
-package cse1325project;
+package CSE1325Project;
 import java.util.*;
 import java.time.*;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
-import static cse1325project.Constants.*;
+import static CSE1325Project.Constants.*;
 
 public class Main
 {
@@ -15,6 +15,7 @@ public class Main
     int choice = 0;
     LocalDate currentDate = LocalDate.now();
     String strCurrentDate = currentDate.format(DATE_FORMATTER);
+    LinkedList<Event> eventList = FileManager.loadEvents();     //Create list of current events in file
 
     //Starter Output
     System.out.println("Welcome to the Local Loop!");
@@ -22,7 +23,7 @@ public class Main
   
     do
     {
-      LinkedList<Event> eventList = new LinkedList<Event>();     //Create list of current events in file
+      eventList = FileManager.loadEvents();
 
       //Print User Options
       System.out.println("Choose an option: ");
@@ -222,6 +223,7 @@ public class Main
     }
   }
 
+/*
   //Getting user input to ADD Event
   public static void userAdd(Scanner input, LinkedList<Event> eventList)
   {
@@ -279,6 +281,7 @@ public class Main
     
     FileManager.addEvent(new Event(name, date, time, duration, types, format, organizer, password, location));
   }
+  */
 }
 
     

@@ -1,10 +1,10 @@
-package cse1325project;
+package CSE1325Project;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import static cse1325project.Constants.*;
+import static CSE1325Project.Constants.*;
 
 public class FileManager 
 {

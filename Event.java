@@ -1,7 +1,7 @@
-package cse1325project;
+package CSE1325Project;
 import java.time.*;
 import java.util.*;
-import static cse1325project.Constants.*;
+import static CSE1325Project.Constants.*;
 
 public class Event 
 {
@@ -85,7 +85,7 @@ public class Event
         date = newDate;
     }
 
-    public void setMonth(LocalTime newTime)
+    public void setTime(LocalTime newTime)
     {
         time = newTime;
     }
@@ -139,7 +139,7 @@ public class Event
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
             "Format: " + format + "\n" +
-            "Organizer(s): " + "\n" +
+            "Organizer(s): " + organizer + "\n" +
             "Location: " + location + "\n");
         return eventInfo;
     }
