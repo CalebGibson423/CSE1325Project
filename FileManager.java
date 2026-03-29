@@ -57,7 +57,7 @@ public class FileManager
             while ((line = reader.readLine()) != null) 
             {
                 //Splits the line (event info)
-                String[] eventParts = line.split("|");
+                String[] eventParts = line.split(" \\| ");
 
                 //Put event info into proper types
                 String name = eventParts[0];
@@ -105,7 +105,6 @@ public class FileManager
     //Add event to list
     public static LinkedList<Event> addEvent(Event event)
     {
-    
         //Create list of current events to update
         LinkedList<Event> updatedEvents = loadEvents();
         //Get dateTime of event

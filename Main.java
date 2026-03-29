@@ -1,7 +1,11 @@
 package cse1325project;
 import java.util.*;
 import java.time.*;
-import java.time.format.DateTimeParseException.DateTimeFormatter;
+import java.time.YearMonth;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
+import static cse1325project.Constants.*;
 
 public class Main
 {
@@ -18,17 +22,19 @@ public class Main
   
     do
     {
-      LinkedList<Event> eventList = loadEvents();     //Create list of current events in file
+      LinkedList<Event> eventList = new LinkedList<Event>();     //Create list of current events in file
 
+      //Print User Options
       System.out.println("Choose an option: ");
       System.out.println("1. View Local Events");
       System.out.println("2. Add Event");
       System.out.println("3. Edit Event");
       System.out.println("4. Delete Event");
       System.out.println("5. Exit");
-      choice = input.nextInt()
+      choice = input.nextInt();
       input.nextLine();
-
+      
+      //Use Switch to View/Add/Edit/Delete Events
       switch(choice)
       {
         //View Events
@@ -51,7 +57,7 @@ public class Main
             {
               validDisplay = true;
               //Call Method to display MM-dd-yyyy format
-              displayEvents(displayChoice, strCurrentDate);
+              displayEvents(displayChoice, strCurrentDate, eventList);
             }
 
             //Show Events for Later Date
@@ -59,12 +65,13 @@ public class Main
             {
               validDisplay = true;
               YearMonth ym = null;    //Holds valid month-year
+              String disDate = "";
 
               //Keep asking for month year until valid input
               while(ym == null)
               {
                 System.out.print("Please enter the month and year you'd like to view events for(MM-yyyy): ");
-                String disDate = input.nextLine();
+                disDate = input.nextLine();
                 
                 try
                 {
@@ -77,7 +84,7 @@ public class Main
               }
 
               //Call Method to display events for MM-yyyy format
-              displayEvents(displayChoice, disDate);     
+              displayEvents(displayChoice, disDate, eventList);     
             }
 
             else
@@ -115,19 +122,28 @@ public class Main
   }
 
   //Display Events
-  public static void displayEvents(int displayChoice, String disDate)
+  public static void displayEvents(int displayChoice, String disDate, LinkedList<Event> eventList)
   {
+    //Create List to add events to display
     LinkedList<Event> eventsToDisplay = new LinkedList<Event>();
+    LocalDate currentDate = null;
+
+    if(displayChoice != 4)
+    {
+      //Put date String into LocalDate format
+      currentDate = LocalDate.parse(disDate, DATE_FORMATTER);
+    }
+
+    //Check How User Wanted Events Displayed
     switch(displayChoice)
     {
       //View Events Happening TODAY
       case 1:
-        LocalDate currentDate = LocalDate.parse(disDate, DATE_FORMATTER);
         //Iterate through all events
         for(Event event : eventList)
         {
           //Check if todays date is equal to event date in the list
-          if(currentDate.isEqual(LocalDateTime.of(event.getDate())))
+          if(currentDate.isEqual(event.getDate()))
           {
               eventsToDisplay.add(event);
           }
@@ -136,14 +152,19 @@ public class Main
 
       //View Events Happening this WEEK
       case 2:
-        LocalDate currentDate = LocalDate.parse(disDate, DATE_FORMATTER);
-        WeekFields = weekFields.of(Locale.getDefault());           //Default Locale
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());           //Default Locale
+        //Get Current Week and Year
         int curWeek = currentDate.get(weekFields.weekOfWeekBasedYear());
+        int curYear = currentDate.get(weekFields.weekBasedYear());
+
         //Iterate through all events
         for(Event event : eventList)
         {
+          //Get week of event
           int eventWeek = (event.getDate()).get(weekFields.weekOfWeekBasedYear());
-          if(curWeek == eventWeek)
+          int eventYear = (event.getDate()).get(weekFields.weekBasedYear());
+          
+          if(curWeek == eventWeek && curYear == eventYear)
           {
             eventsToDisplay.add(event);
           }
@@ -152,29 +173,59 @@ public class Main
       
       //View Events Happening this MONTH
       case 3:
-          break;
+        //Iterate through all events
+        for(Event event : eventList)
+        {
+          //If 
+          if((currentDate.getMonthValue() == (event.getDate()).getMonthValue()) && 
+            (currentDate.getYear() == (event.getDate()).getYear()))
+            {
+              eventsToDisplay.add(event);
+            }
+        }
+        break;
 
       //View Events Happening During a GIVEN month and year
       case 4:
-          break;
+        //Put display date String into YearMonth format
+        YearMonth searchDate = YearMonth.parse(disDate, dayYearFormat);
 
-      
-      default:
-          System.out.println("Invalid option");
+        //Iterate through all events
+        for(Event event : eventList)
+        {
+          LocalDate eventDate = event.getDate();
+          YearMonth eventYm = YearMonth.from(eventDate);
+          if(searchDate.equals(eventYm))
+          {
+            eventsToDisplay.add(event);
+          }
+        }
+        break;
     }
+
+    //Print Events
     System.out.println();
-    for(Event event : eventsToDisplay)
-    {
-        System.out.println(event.toString());
-        System.out.println("-".repeat(40));
-    }
 
+    //If no events were found within the scope
+    if(eventsToDisplay.isEmpty())
+    {
+      System.out.println("No events found.");
+    }
+    //If events were found
+    else
+    {
+      for(Event event : eventsToDisplay)
+      {
+          System.out.println(event.toString());
+          System.out.println("-".repeat(40));
+      }
+    }
   }
 
   //Getting user input to ADD Event
-  public static void userAdd(Scanner input)
+  public static void userAdd(Scanner input, LinkedList<Event> eventList)
   {
-    LinkedList<Event> events = new LinkedList<Event>();
+    
 
     //declare variables
     String name = "";//name of event
@@ -226,11 +277,8 @@ public class Main
     System.out.println("Enter event location: ");
     location = input.nextLine();
     
-    events.add(new Event(name, date, time, duration, types, format, organizer, password, location));
-
-    FileManager.saveEvents(events);
+    FileManager.addEvent(new Event(name, date, time, duration, types, format, organizer, password, location));
   }
-
 }
 
     
