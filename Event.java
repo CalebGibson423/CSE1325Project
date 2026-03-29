@@ -1,5 +1,7 @@
+package cse1325project;
 import java.time.*;
 import java.util.*;
+import static cse1325project.Constants.*;
 
 public class Event 
 {
@@ -120,8 +122,8 @@ public class Event
 
         String eventInfo = (
             "Name: " + name + "\n" + 
-            "Date: " + date.format(Constants.dateFormatter) + "\n" +
-            "Time: " + time.format(Constants.timeFormatter) + "\n" +
+            "Date: " + date.format(DATE_FORMATTER) + "\n" +
+            "Time: " + time.format(TIME_FORMATTER) + "\n" +
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
             "Format: " + format + "\n" +
