@@ -15,7 +15,6 @@ public class FileManager
         //Try Open/Create a file called "events.txt"
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("events.txt"))) 
         {
-
             //Loop through events
             for(int i = 0; i < events.size(); i++)
             {
@@ -28,7 +27,8 @@ public class FileManager
                     String.join(",", events.get(i).getTypes()) + " | " +
                     events.get(i).getFormat() + " | " +
                     events.get(i).getOrganizer() + " | " + 
-                    events.get(i).getPassword()
+                    events.get(i).getPassword() + " | " +
+                    events.get(i).getLocation()
                 );
 
                 //Move to next line for the next event
@@ -83,8 +83,11 @@ public class FileManager
                 //Puts event password into String
                 String password = eventParts[7];
 
+                //Puts event location into String
+                String location = eventParts[8];
+
                 //Creates new event object
-                Event newEvent = new Event(name, date, time, duration, typesList, format, organizer, password); 
+                Event newEvent = new Event(name, date, time, duration, typesList, format, organizer, password, location); 
                 events.add(newEvent);                   //Adds the event read from the line to a list
             }
 
