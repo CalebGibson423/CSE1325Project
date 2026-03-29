@@ -7,12 +7,12 @@ public class Event
     private LocalDate date;
     private LocalTime time;
     private double duration;
-    private ArrayList<String> type;
-    //Corporate & Business, Social & Personal, Community & Cultural, Educational & Academic, Sports & Recreational
-    private String format;
-    //In-person, Virtual, Hybrid
+    private ArrayList<String> type;         //Corporate & Business, Social & Personal, Community & Cultural, Educational & Academic, Sports & Recreational
+    private String format;                  //In-person, Virtual, Hybrid
+    private String organizer;
+    private String password;
     
-    public Event(String name, LocalDate date, LocalTime time, double duration, ArrayList<String> type, String format)
+    public Event(String name, LocalDate date, LocalTime time, double duration, ArrayList<String> type, String format, String organizer, String password)
     {
         this.name = name;
         this.date = date;
@@ -20,6 +20,8 @@ public class Event
         this.duration = duration;
         this.type = type;
         this.format = format;   
+        this.organizer = organizer;
+        this.password = password;
     }  
     
     //getters
@@ -51,6 +53,16 @@ public class Event
     public String getFormat()
     {
         return format;
+    }
+
+    public String getOrganizer()
+    {
+        return organizer;
+    }
+
+    public String getPassword()
+    {
+        return password;
     }
     
     //setters
@@ -84,6 +96,16 @@ public class Event
         format = newFormat;
     }  
 
+    public void setHost(String newOrganizer)
+    {
+        organizer = newOrganizer;
+    }
+
+    public void setPassword(String newPassword)
+    {
+        password = newPassword;
+    }
+
     public String toString()
     {
         String eventTypes = "";
@@ -102,7 +124,8 @@ public class Event
             "Time: " + time.format(Constants.timeFormatter) + "\n" +
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
-            "Format: " + format + "\n" );
+            "Format: " + format + "\n" +
+            "Organizer(s): " + "\n");
         return eventInfo;
     }
 }

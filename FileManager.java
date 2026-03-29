@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-public class FileManager {
+public class FileManager 
+{
 
     //Write's the list of events to a file
     public static void saveEvents(LinkedList<Event> events)
@@ -94,6 +95,7 @@ public class FileManager {
     //Add event to list
     public static LinkedList<Event> addEvent(Event event)
     {
+    
         //Create list of current events to update
         LinkedList<Event> updatedEvents = loadEvents();
         //Get dateTime of event
@@ -128,4 +130,18 @@ public class FileManager {
         saveEvents(updatedEvents);      //Update file with new event
         return updatedEvents;           //Return new event list with added event
     } 
+
+    //Delete Event from list
+    public static void deleteEvent(Event event)
+    {
+        /*Whenever you ask a user which event they want to delete in main, loop through event names and hosts to determine if they have chosen the correct event to delete.
+        We could also implement passwords to each event, that way only the host can access an event to edit or delete.
+        If we implement servers, maybe there will be a way to recognize clients but idk how to do that. 
+        */
+
+        LinkedList<Event> eventList = loadEvents();     //Create list of current events in file
+        eventList.remove(event);                        //Remove event from list
+        saveEvents(eventList);                          //Save list with changes to file
+
+    }
 }
