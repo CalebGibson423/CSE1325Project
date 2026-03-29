@@ -1,3 +1,4 @@
+package cse1325project;
 import java.util.*;
 import java.time.*;
 
@@ -14,7 +15,9 @@ public class Main
     LocalTime time = LocalTime.of(15, 30); //time of event
     double duration = 0.0; //how long the event will last
     ArrayList<String> types = new ArrayList<>(); //tags for the event
-    String format = ""; //how the event will take place  
+    String format = ""; //how the event will take place 
+    String organizer = "";
+    String password = ""; 
 
     //enter name of event
     System.out.print("Enter the name of the event: ");
@@ -43,9 +46,15 @@ public class Main
     }
     while(check.equalsIgnoreCase("y"));
 
+    //enter organizer of event
+    System.out.print("Who is the organizer(s) of this event?: ");
+    organizer = input.nextLine();
 
+    //enter password for user editing events
+    System.out.print("Enter a password for future modification of this event: ");
+    password = input.nextLine();
     
-    events.add(new Event(name, date, time, duration, types, format));
+    events.add(new Event(name, date, time, duration, types, format, organizer, password));
 
     FileManager.saveEvents(events);
 
