@@ -1,7 +1,7 @@
-package cse1325project;
+package CSE1325Project;
 import java.time.*;
 import java.util.*;
-import static cse1325project.Constants.*;
+import static CSE1325Project.Constants.*;
 
 public class Event 
 {
@@ -13,8 +13,9 @@ public class Event
     private String format;                  //In-person, Virtual, Hybrid
     private String organizer;
     private String password;
+    private String location; 
     
-    public Event(String name, LocalDate date, LocalTime time, double duration, ArrayList<String> type, String format, String organizer, String password)
+    public Event(String name, LocalDate date, LocalTime time, double duration, ArrayList<String> type, String format, String organizer, String password, String location)
     {
         this.name = name;
         this.date = date;
@@ -24,6 +25,7 @@ public class Event
         this.format = format;   
         this.organizer = organizer;
         this.password = password;
+        this.location = location;
     }  
     
     //getters
@@ -66,6 +68,11 @@ public class Event
     {
         return password;
     }
+
+    public String getLocation()
+    {
+        return location;
+    }
     
     //setters
     public void setName(String newName)
@@ -78,7 +85,7 @@ public class Event
         date = newDate;
     }
 
-    public void setMonth(LocalTime newTime)
+    public void setTime(LocalTime newTime)
     {
         time = newTime;
     }
@@ -108,6 +115,11 @@ public class Event
         password = newPassword;
     }
 
+    public void setLocation(String newLocation)
+    {
+        location = newLocation;
+    }
+
     public String toString()
     {
         String eventTypes = "";
@@ -127,7 +139,8 @@ public class Event
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
             "Format: " + format + "\n" +
-            "Organizer(s): " + "\n");
+            "Organizer(s): " + organizer + "\n" +
+            "Location: " + location + "\n");
         return eventInfo;
     }
 }
