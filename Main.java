@@ -223,7 +223,7 @@ public class Main
     }
   }
 
-/*
+
   //Getting user input to ADD Event
   public static void userAdd(Scanner input, LinkedList<Event> eventList)
   {
@@ -281,7 +281,7 @@ public class Main
     
     FileManager.addEvent(new Event(name, date, time, duration, types, format, organizer, password, location));
   }
-  */
+  
 }
 
     
