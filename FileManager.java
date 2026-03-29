@@ -6,17 +6,11 @@ import java.time.format.DateTimeFormatter;
 
 public class FileManager {
 
-    //Create formats for date and time
-    private static final DateTimeFormatter DATE_FORMATTER = 
-        DateTimeFormatter.ofPattern("MM-dd-yyyy");
-    private static final DateTimeFormatter TIME_FORMATTER =
-        DateTimeFormatter.ofPattern("HH:mm:ss");
-
     //Write's the list of events to a file
     public static void saveEvents(LinkedList<Event> events)
     {
         //Try Open/Create a file called "events.txt"
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("events.txt"));) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("events.txt"))) 
         {
 
             //Loop through events
@@ -24,11 +18,11 @@ public class FileManager {
             {
                 //For each event, write event info in the following format
                 writer.write(
-                    events.get(i).getName() + "/" +
-                    events.get(i).getDate().format(DATE_FORMATTER) + "/" +
-                    events.get(i).getTime().format(TIME_FORMATTER) + "/" +
-                    events.get(i).getDuration() + "/" +
-                    String.join(",", events.get(i).getTypes()) + "/" +
+                    events.get(i).getName() + " | " +
+                    events.get(i).getDate().format(Constants.DATE_FORMATTER) + " | " +
+                    events.get(i).getTime().format(Constants.TIME_FORMATTER) + " | " +
+                    events.get(i).getDuration() + " | " +
+                    String.join(",", events.get(i).getTypes()) + " | " +
                     events.get(i).getFormat()
                 );
 
@@ -58,21 +52,24 @@ public class FileManager {
             while ((line = reader.readLine()) != null) 
             {
                 //Splits the line (event info)
-                String[] eventParts = line.split("/");
+                String[] eventParts = line.split("|");
 
                 //Put event info into proper types
                 String name = eventParts[0];
-                LocalDate date = LocalDate.parse(eventParts[1], DATE_FORMATTER);
-                LocalTime time = LocalTime.parse(eventParts[2], TIME_FORMATTER);
+                LocalDate date = LocalDate.parse(eventParts[1], Constants.DATE_FORMATTER);
+                LocalTime time = LocalTime.parse(eventParts[2], Constants.TIME_FORMATTER);
                 double duration = Double.parseDouble(eventParts[3]);
 
                 //Handles the "types" list and puts all types into an ArrayList
-                String[] typesArray = eventParts[4].split(",");
                 ArrayList<String> typesList = new ArrayList<>();
-                //Adds each type to the ArrayList
-                for(int i = 0; i < typesArray.length; i++)
+                //Checks if there are any types
+                if(!eventsParts[4].isempty())
                 {
-                    typesList.add(typesArray[i]);
+                    //Adds each type to the ArrayList
+                    for(String t : eventsParts[4].split(","))
+                    {
+                        typesList.add(t);
+                    }
                 }
 
                 //Puts event format into String
