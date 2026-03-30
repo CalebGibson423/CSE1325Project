@@ -1,10 +1,9 @@
-package CSE1325Project;
+package theLocalLoop;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
-import static CSE1325Project.Constants.*;
+import static theLocalLoop.Constants.*;
 
 public class FileManager 
 {
@@ -21,8 +20,8 @@ public class FileManager
                 //For each event, write event info in the following format
                 writer.write(
                     events.get(i).getName() + " | " +
-                    events.get(i).getDate().format(DATE_FORMATTER) + " | " +
-                    events.get(i).getTime().format(TIME_FORMATTER) + " | " +
+                    events.get(i).getDate().format(dateFormatter) + " | " +
+                    events.get(i).getTime().format(timeFormatter) + " | " +
                     events.get(i).getDuration() + " | " +
                     String.join(",", events.get(i).getTypes()) + " | " +
                     events.get(i).getFormat() + " | " +
@@ -61,8 +60,8 @@ public class FileManager
 
                 //Put event info into proper types
                 String name = eventParts[0];
-                LocalDate date = LocalDate.parse(eventParts[1], DATE_FORMATTER);
-                LocalTime time = LocalTime.parse(eventParts[2], TIME_FORMATTER);
+                LocalDate date = LocalDate.parse(eventParts[1], dateFormatter);
+                LocalTime time = LocalTime.parse(eventParts[2], timeFormatter);
                 double duration = Double.parseDouble(eventParts[3]);
 
                 //Handles the "types" list and puts all types into an ArrayList

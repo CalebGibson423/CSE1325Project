@@ -1,11 +1,10 @@
-package CSE1325Project;
+package theLocalLoop;
 import java.util.*;
 import java.time.*;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
-import static CSE1325Project.Constants.*;
+import static theLocalLoop.Constants.*;
 
 public class Main
 {
@@ -14,7 +13,7 @@ public class Main
     Scanner input = new Scanner(System.in);
     int choice = 0;
     LocalDate currentDate = LocalDate.now();
-    String strCurrentDate = currentDate.format(DATE_FORMATTER);
+    String strCurrentDate = currentDate.format(dateFormatter);
     LinkedList<Event> eventList = FileManager.loadEvents();     //Create list of current events in file
 
     //Starter Output
@@ -76,7 +75,7 @@ public class Main
                 
                 try
                 {
-                  ym = YearMonth.parse(disDate, dayYearFormat);       //Parse Input
+                  ym = YearMonth.parse(disDate, monthYearFormatter);       //Parse Input
                 }
                 catch(DateTimeParseException e)
                 {
@@ -132,7 +131,7 @@ public class Main
     if(displayChoice != 4)
     {
       //Put date String into LocalDate format
-      currentDate = LocalDate.parse(disDate, DATE_FORMATTER);
+      currentDate = LocalDate.parse(disDate, dateFormatter);
     }
 
     //Check How User Wanted Events Displayed
@@ -189,7 +188,7 @@ public class Main
       //View Events Happening During a GIVEN month and year
       case 4:
         //Put display date String into YearMonth format
-        YearMonth searchDate = YearMonth.parse(disDate, dayYearFormat);
+        YearMonth searchDate = YearMonth.parse(disDate, monthYearFormatter);
 
         //Iterate through all events
         for(Event event : eventList)

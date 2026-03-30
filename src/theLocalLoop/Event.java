@@ -1,7 +1,7 @@
-package CSE1325Project;
+package theLocalLoop;
 import java.time.*;
 import java.util.*;
-import static CSE1325Project.Constants.*;
+import static theLocalLoop.Constants.*;
 
 public class Event 
 {
@@ -134,8 +134,8 @@ public class Event
 
         String eventInfo = (
             "Name: " + name + "\n" + 
-            "Date: " + date.format(DATE_FORMATTER) + "\n" +
-            "Time: " + time.format(TIME_FORMATTER) + "\n" +
+            "Date: " + date.format(dateFormatter) + "\n" +
+            "Time: " + time.format(timeFormatter) + "\n" +
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
             "Format: " + format + "\n" +
@@ -144,4 +144,3 @@ public class Event
         return eventInfo;
     }
 }
-
