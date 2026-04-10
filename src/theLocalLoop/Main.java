@@ -97,6 +97,7 @@ public class Main
 
         //Add Event
         case 2:
+          userAdd(input, eventList);
           break;
 
         //Edit Event
@@ -228,14 +229,15 @@ public class Main
   public static void userAdd(Scanner input, LinkedList<Event> eventList)
   {
     
-
     //declare variables
-    String name = "";//name of event
-    LocalDate date = LocalDate.of(2002, 04, 23); //date of event
-    LocalTime time = LocalTime.of(15, 30); //time of event
-    double duration = 0.0; //how long the event will last
+    String name = "";           //name of event
+    LocalDate date = null;             //date of event
+    LocalTime time = null;             //time of event
+    String addDate = "";              //User date given
+    String addTime = "";              //User time given
+    double duration = 0.0;            //how long the event will last
     ArrayList<String> types = new ArrayList<>(); //tags for the event
-    String format = ""; //how the event will take place 
+    String format = "";   //how the event will take place 
     String organizer = "";
     String password = ""; 
     String location = "";
@@ -243,6 +245,41 @@ public class Main
     //enter name of event
     System.out.print("Enter the name of the event: ");
     name = input.nextLine();
+
+    //Enter date of event
+    //Keep asking for date until valid input
+    while(date == null)
+    {
+      System.out.print("Enter event date (MM-dd-yyyy): ");
+      addDate = input.nextLine();
+      
+      try
+      {
+        date = LocalDate.parse(addDate, dateFormatter);       //Parse Input
+      }
+      catch(DateTimeParseException e)
+      {
+        System.out.println("Invalid Date Format. Please use MM-dd-yyyy...");
+      }
+    }
+
+    //Enter date of event
+    //Keep asking for date until valid input
+    while(time == null)
+    {
+      System.out.print("Enter event time (HH:mm): ");
+      addTime = input.nextLine();
+      
+      try
+      {
+        time = LocalTime.parse(addTime, timeFormatter);       //Parse Input
+      }
+      catch(DateTimeParseException e)
+      {
+        System.out.println("Invalid Date Format. Please use HH:mm...");
+      }
+    }
+    
 
     //enter duration of event
     System.out.print("Enter the duration of the event(Hour(s).Minute(s): ");
@@ -276,7 +313,7 @@ public class Main
     password = input.nextLine();
 
     //enter event location
-    System.out.println("Enter event location: ");
+    System.out.print("Enter event location: ");
     location = input.nextLine();
     
     FileManager.addEvent(new Event(name, date, time, duration, types, format, organizer, password, location));
