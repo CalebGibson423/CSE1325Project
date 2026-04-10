@@ -185,6 +185,7 @@ public class FileManager
 
                     // More to come
                 }
+                eventList.set(i, current);
                 break;
             }
         }
