@@ -148,7 +148,13 @@ public class FileManager
         */
 
         LinkedList<Event> eventList = loadEvents();     //Create list of current events in file
-        eventList.remove(event);                        //Remove event from list
+        for(int i = 0; i < eventList.size(); i++)
+        {
+            if(eventList.get(i).getName().equalsIgnoreCase(event.getName()))
+            {
+                eventList.remove(i);//remove event based on name
+            }
+        } 
         saveEvents(eventList);                          //Save list with changes to file
     }
 
@@ -161,3 +167,4 @@ public class FileManager
         
     }
 }
+
