@@ -1,23 +1,34 @@
 Todo list:
-- event class
-    - time
-
-- calendar class that stores events
+- Create valid class methods
 
 - user interface
     - add events
+        - Validation Input
+        - If date has passed, don't allow user to put it
     - delete events
+        - Add password Validation
+        - Print event to ensure correct event is deleted
     - view events
+        -View events by type
     
 - sort events
-    - sort by soonest date/time
     - be able to categorize by type
     - Delete events if date has passed
-    - Put events in a file to save
+
+- Load events
+    - If date has passed delete event
+
+- Validation class
+    - Validate Type
+    - Validate Format
+    - Validate Location 
+    - Validate Duration
+    - Validate Password
 
 - Extra Functions:
     - Display events depending on location (Show nearby events)
     - login function
     - Adding event descriptions
-    - Allow users to pick which events to see within an allocated time
+
+
     
