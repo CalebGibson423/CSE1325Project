@@ -120,6 +120,7 @@ public class Event
         location = newLocation;
     }
 
+    @Override
     public String toString()
     {
         String eventTypes = "";

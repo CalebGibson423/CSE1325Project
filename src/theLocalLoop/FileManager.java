@@ -152,12 +152,40 @@ public class FileManager
         saveEvents(eventList);                          //Save list with changes to file
     }
 
-    //Move Event in list
-    public static void moveEvent(Event event)
+    //Edit Event in list
+    public static void editEvent(Event event, int choice, String edit)
     {
-        /*
-        */
         LinkedList<Event> eventList = loadEvents();
-        
+        for (int i = 0; i < eventList.size(); i++)
+        {
+            Event current = eventList.get(i);
+            if (current.equals(event)){
+                switch (choice){
+                    case 1: // Edit name
+                        current.setName(edit);
+                        break;
+
+                    case 4: // Edit duration
+                        double editDouble = Double.parseDouble(edit);
+                        current.setDuration(editDouble);
+                        break;
+
+                    case 6: // Edit format
+                        current.setFormat(edit);
+                        break;
+
+                    case 7: // Edit host
+                        current.setHost(edit);
+                        break;
+
+                    case 9: // Edit location
+                        current.setLocation(edit);
+
+                    // More to come
+                }
+                break;
+            }
+        }
+        saveEvents(eventList);
     }
 }
