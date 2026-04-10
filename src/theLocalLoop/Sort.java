@@ -1,5 +1,6 @@
 package theLocalLoop;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -11,6 +12,11 @@ public class Sort {
     public static void sortByName(LinkedList<Event> eventList){
 
         Collections.sort(eventList, nameCompare);
+    }
+
+    public static void sortByDateTime(LinkedList<Event> eventList){
+
+        Collections.sort(eventList, dateTimeCompare);
     }
 
     public static void sortByOrganizer(LinkedList<Event> eventList){
@@ -60,6 +66,19 @@ public class Sort {
         @Override
         public int compare(Event e1, Event e2) {
             return e1.getName().compareToIgnoreCase(e2.getName());
+        }
+    };
+
+    //comparator for date time
+    static Comparator<Event> dateTimeCompare = new Comparator<Event>() {
+        
+        @Override
+        public int compare(Event e1, Event e2) {
+
+            LocalDateTime e1DateTime = LocalDateTime.of(e1.getDate(), e1.getTime());
+            LocalDateTime e2DateTime = LocalDateTime.of(e2.getDate(), e2.getTime());
+
+            return e1DateTime.compareTo(e2DateTime);
         }
     };
 
