@@ -153,13 +153,14 @@ public class FileManager
     }
 
     //Edit Event in list
-    public static void editEvent(Event event, int choice, String edit)
+    public static void editEvent(Event event, int choice, String edit) // Attribute of event to change depends on user's choice
     {
         LinkedList<Event> eventList = loadEvents();
         for (int i = 0; i < eventList.size(); i++)
         {
             Event current = eventList.get(i);
-            if (current.equals(event)){
+            if (current.equals(event))
+            {
                 switch (choice){
                     case 1: // Edit name
                         current.setName(edit);
