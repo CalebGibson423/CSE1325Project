@@ -150,6 +150,14 @@ public class FileManager
         LinkedList<Event> eventList = loadEvents();     //Create list of current events in file
         eventList.remove(event);                        //Remove event from list
         saveEvents(eventList);                          //Save list with changes to file
+    }
 
+    //Move Event in list
+    public static void moveEvent(Event event)
+    {
+        /*
+        */
+        LinkedList<Event> eventList = loadEvents();
+        
     }
 }
