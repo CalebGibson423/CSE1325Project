@@ -106,6 +106,7 @@ public class Main
         
         //Delete Event
         case 4:
+          DeleteEvents(input, eventList);
           break;
 
         //Exit
@@ -317,6 +318,32 @@ public class Main
     
     FileManager.addEvent(new Event(name, date, time, duration, types, format, organizer, password, location));
   }
+  
+  public static void DeleteEvents(Scanner input, LinkedList<Event> eventList)
+  {
+    String del = "";
+    boolean found = false;
+
+    System.out.print("Name of the event you would like to delete: ");
+    del = input.nextLine();//get event you want to delete
+
+    for(int i = 0; i < eventList.size(); i++)
+    {
+      if(del.equalsIgnoreCase(eventList.get(i).getName()))
+      {
+        FileManager.deleteEvent(eventList.get(i));//if event is found, then delete event
+        eventList.remove(i);
+        found = true;
+        System.out.println("Event has been successfully deleted");
+        break;
+      }
+    }
+
+    if(!found)
+    {
+      System.out.println("Event was not found");
+    }
+  } 
 }
 
     
