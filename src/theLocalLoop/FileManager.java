@@ -161,7 +161,8 @@ public class FileManager
             Event current = eventList.get(i);
             if (current.equals(event))
             {
-                switch (choice){
+                switch (choice)
+                {
                     case 1: // Edit name
                         current.setName(edit);
                         break;
