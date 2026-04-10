@@ -167,10 +167,22 @@ public class FileManager
                         current.setName(edit);
                         break;
 
+                    case 2: // Edit date
+                        LocalDate editDate = LocalDate.parse(edit, dateFormatter);
+                        current.setDate(editDate);
+                        break;
+
+                    case 3: // Edit time
+                        LocalTime editTime = LocalTime.parse(edit, timeFormatter);
+                        current.setTime(editTime);
+                        break;
+
                     case 4: // Edit duration
                         double editDouble = Double.parseDouble(edit);
                         current.setDuration(editDouble);
                         break;
+
+                    case 5: // Edit types
 
                     case 6: // Edit format
                         current.setFormat(edit);
@@ -179,6 +191,8 @@ public class FileManager
                     case 7: // Edit host
                         current.setHost(edit);
                         break;
+
+                    case 8: // Edit password?
 
                     case 9: // Edit location
                         current.setLocation(edit);
