@@ -4,10 +4,67 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Sort {
     
-    //sorting -----
+    //Returns a sorted and filtered list of events based on user choices
+    public static LinkedList<Event> sortAndFilter(LinkedList<Event> events, int sortChoice, int filterChoice, Scanner input){
+
+        //Create a working list to sort and filter
+        LinkedList<Event> workingList = new LinkedList<>(events);
+
+        //Handle filtering choice
+        switch(filterChoice)
+        {
+            case 1: //Filter by Type
+                System.out.print("Enter the type you would like to filter by: ");
+                String targetType = input.nextLine();
+
+                workingList = filterByType(events, targetType);
+                break;
+
+            case 2: //Filter by Organizer
+                System.out.print("Enter the organizer you would like to filter by: ");
+                String targetOrganizer = input.nextLine();
+
+                workingList = filterByOrganizer(events, targetOrganizer);
+                break;
+
+            case 3: //No filtering
+                break;
+            
+            default: //Invalid filtering choice catch
+                System.out.println("Invalid filtering choice, please enter 1 or 2...");
+        }
+
+        //Handle sorting choice
+        switch(sortChoice)
+        {
+            case 1: //Sort by Name
+                sortByName(workingList);
+                break;
+
+            case 2: //Sort by Date and Time
+                sortByDateTime(workingList);
+                break;
+
+            case 3: //Sort by Organizer
+                sortByOrganizer(workingList);
+                break;
+
+            case 4: //Sort by Duration
+                sortByDuration(workingList);
+                break;
+
+            default: //Invalid sorting choice catch
+                break;
+        }
+
+        return workingList;
+    }
+
+    //----- sorting -----
 
     public static void sortByName(LinkedList<Event> eventList){
 
@@ -29,7 +86,7 @@ public class Sort {
         Collections.sort(eventList, durationCompare);
     }
 
-    //filtering -----
+    //-----filtering -----
 
     public static LinkedList<Event> filterByType(LinkedList<Event> eventList, String targetType){
     
@@ -40,6 +97,7 @@ public class Sort {
 
                 if(type.equalsIgnoreCase(targetType)){
                     eventListType.add(event);
+                    break;
                 }
             }
         }
@@ -47,7 +105,7 @@ public class Sort {
         return eventListType;
     }
 
-    public static void filterByOrganizer(LinkedList<Event> eventList, String targetOrganizer){
+    public static LinkedList<Event> filterByOrganizer(LinkedList<Event> eventList, String targetOrganizer){
         
         LinkedList<Event> eventListOrganizer = new LinkedList<>();
 
@@ -57,9 +115,25 @@ public class Sort {
                 eventListOrganizer.add(event);
             }
         }
+
+        return eventListOrganizer;
     }
 
-    //comparators -----
+    public static LinkedList<Event> filterByFormat(LinkedList<Event> eventList, String targetFormat){
+        
+        LinkedList<Event> eventListOrganizer = new LinkedList<>();
+
+        for(Event event : eventList){
+            
+            if(event.getFormat().equalsIgnoreCase(targetFormat)){
+                eventListOrganizer.add(event);
+            }
+        }
+
+        return eventListOrganizer;
+    }
+
+    //----- comparators -----
 
     //comparator for names
     static Comparator<Event> nameCompare = new Comparator<Event>() {

@@ -87,10 +87,10 @@ public class FileManager
 
                 //Creates new event object
                 Event newEvent = new Event(name, date, time, duration, typesList, format, organizer, password, location); 
-                events.add(newEvent);                   //Adds the event read from the line to a list
+                events.add(newEvent); //Adds the event read from the line to a list
             }
 
-            return events;              //Returns event list
+            return events; //Returns event list
 
         } 
         //If file fails
@@ -135,8 +135,8 @@ public class FileManager
             updatedEvents.add(event);
         }
     
-        saveEvents(updatedEvents);      //Update file with new event
-        return updatedEvents;           //Return new event list with added event
+        saveEvents(updatedEvents); //Update file with new event
+        return updatedEvents; //Return new event list with added event
     } 
 
     //Delete Event from list
@@ -147,7 +147,7 @@ public class FileManager
         If we implement servers, maybe there will be a way to recognize clients but idk how to do that. 
         */
 
-        LinkedList<Event> eventList = loadEvents();     //Create list of current events in file
+        LinkedList<Event> eventList = loadEvents(); //Create list of current events in file
         for(int i = 0; i < eventList.size(); i++)
         {
             if(eventList.get(i).getName().equalsIgnoreCase(event.getName()))
@@ -155,15 +155,13 @@ public class FileManager
                 eventList.remove(i);//remove event based on name
             }
         } 
-        saveEvents(eventList);                          //Save list with changes to file
+        saveEvents(eventList); //Save list with changes to file
     }
 
     //Move Event in list
     public static void moveEvent(Event event)
     {
-        /*
-        */
-        LinkedList<Event> eventList = loadEvents();
+        //WIP
         
     }
 }

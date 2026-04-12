@@ -1,1 +1,10 @@
-Marathon | 04-23-2002 | 15:30 | 3.0 | Educational | Social | Gaming | water | Online
+Tech Meetup | 04-12-2026 | 18:00 | 2.0 | coding,networking | Virtual | DFW Tech Group | pass123 | Zoom
+Morning Yoga Flow | 04-13-2026 | 07:30 | 1.5 | fitness,wellness | In person | Grand Prairie Parks Dept |  | Central Park
+Startup Pitch Night | 04-14-2026 | 19:00 | 3.0 | business,startup | In person | DFW Innovators | pitchit | Dallas Hub
+AI Workshop | 04-15-2026 | 16:00 | 2.5 | technology,education | Virtual | AI Learning Group | ai2026 | Google Meet
+Community Cleanup Day | 04-16-2026 | 09:00 | 4.0 | community,volunteering | In person | City Volunteers |  | Main Street Park
+Gaming Tournament | 04-17-2026 | 17:00 | 5.0 | gaming,esports | Virtual | Texas Gamers | ggwp | Discord
+Book Club Meeting | 04-18-2026 | 15:00 | 1.5 | reading,discussion | Virtual | Library Readers Group | books | Zoom
+Food Truck Festival | 04-19-2026 | 12:00 | 6.0 | food,festival | In person | City Events | yum2026 | Downtown Grand Prairie
+Hackathon Kickoff | 04-20-2026 | 09:00 | 8.0 | coding,hackathon | In person | DFW Hackers | hack2026 | Innovation Lab
+Photography Workshop | 04-21-2026 | 14:00 | 2.0 | art,photography | In person | Creative Lens Group | photo | Arts Center
