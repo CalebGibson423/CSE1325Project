@@ -311,7 +311,6 @@ public class EventManager {
         for(int i = 0; i < events.size(); i++){
             if(eventName.equalsIgnoreCase(events.get(i).getName())){     
                 found = true;
-                break;
             }
 
             //If event is found, check if it has a password and if so, ask user for password before deleting
