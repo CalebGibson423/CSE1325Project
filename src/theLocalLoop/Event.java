@@ -143,4 +143,13 @@ public class Event
             "Location: " + location + "\n");
         return eventInfo;
     }
+
+    public String toSummaryString(){
+        String eventSummary = (
+            name + " on " + date.format(dateFormatter) + " at " + time.format(timeFormatter) + " for " + duration + " hours\n" +
+            "Format: " + format + "\n" +
+            "Organizer(s): " + organizer + "\n" +
+            "Location: " + location + "\n");
+        return eventSummary;
+    }
 }
