@@ -157,12 +157,5 @@ public class FileManager
         } 
         saveEvents(eventList); //Save list with changes to file
     }
-
-    //Move Event in list
-    public static void moveEvent(Event event)
-    {
-        //WIP
-        
-    }
 }
 
