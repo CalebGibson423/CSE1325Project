@@ -105,7 +105,7 @@ public class Event
         format = newFormat;
     }  
 
-    public void setHost(String newOrganizer)
+    public void setOrganizer(String newOrganizer)
     {
         organizer = newOrganizer;
     }
