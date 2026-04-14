@@ -164,38 +164,42 @@ public class FileManager
                 switch (choice)
                 {
                     case 1: // Edit name
-                        current.setName(edit);
+                        String newName = edit;
+                        current.setName(newName);
                         break;
 
                     case 2: // Edit date
-                        LocalDate editDate = LocalDate.parse(edit, dateFormatter);
-                        current.setDate(editDate);
+                        LocalDate newDate = LocalDate.parse(edit, dateFormatter);
+                        current.setDate(newDate);
                         break;
 
                     case 3: // Edit time
-                        LocalTime editTime = LocalTime.parse(edit, timeFormatter);
-                        current.setTime(editTime);
+                        LocalTime newTime = LocalTime.parse(edit, timeFormatter);
+                        current.setTime(newTime);
                         break;
 
                     case 4: // Edit duration
-                        double editDouble = Double.parseDouble(edit);
-                        current.setDuration(editDouble);
+                        double newDuration = Double.parseDouble(edit);
+                        current.setDuration(newDuration);
                         break;
 
                     case 5: // Edit types
 
                     case 6: // Edit format
-                        current.setFormat(edit);
+                        String newFormat = edit;
+                        current.setFormat(newFormat);
                         break;
 
                     case 7: // Edit host
-                        current.setHost(edit);
+                        String newOrganizer = edit;
+                        current.setHost(newOrganizer);
                         break;
 
                     case 8: // Edit password?
 
                     case 9: // Edit location
-                        current.setLocation(edit);
+                        String newLocation = edit;
+                        current.setLocation(newLocation);
 
                     // More to come
                 }
