@@ -24,9 +24,8 @@ public class Main
     while(choice != 7)
     {
       MenuManager.printMenu(); //Print menu options
-      choice = input.nextInt(); //Get user choice
-      input.nextLine();
-
+      choice = InputValidator.getValidInt(input, "Please enter your selection: ", 1, 7);
+      
       MenuManager.handleChoice(choice, input, eventList); //Handle user choice
     }
 
