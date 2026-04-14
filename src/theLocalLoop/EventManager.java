@@ -262,17 +262,10 @@ public class EventManager {
         duration = InputValidator.getValidDouble(input, "Enter event duration in hours (e.g. 1.5): ");
 
         //Enter types/tags for event
-        System.out.print("Enter event types/tags (separated by commas): ");
-        String typesInput = input.nextLine();
-        String[] typesArray = typesInput.split(",");
-        
-        for(String type: typesArray){
-            types.add(type.trim());
-        }
+        types = InputValidator.getValidTags(input, "Enter event types/tags (seperated by commas): ", Constants.ValidTags);
 
         //Enter format of event
-        String[] validFormats = {"In person", "Virtual", "Hybrid"};
-        format = InputValidator.getValidOption(input, "Enter the format (In person / Virtual / Hybrid): ", validFormats);
+        format = InputValidator.getValidOption(input, "Enter the format (In person / Virtual / Hybrid): ", Constants.validFormats);
 
         //Enter organizer of event
         organizer = InputValidator.getRequiredString(input, "Enter the organizer of this event: ");
