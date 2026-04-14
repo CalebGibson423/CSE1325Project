@@ -136,7 +136,7 @@ public class Sort {
     //----- comparators -----
 
     //comparator for names
-    static Comparator<Event> nameCompare = new Comparator<Event>() {
+    private static Comparator<Event> nameCompare = new Comparator<Event>() {
         @Override
         public int compare(Event e1, Event e2) {
             return e1.getName().compareToIgnoreCase(e2.getName());
@@ -144,7 +144,7 @@ public class Sort {
     };
 
     //comparator for date time
-    static Comparator<Event> dateTimeCompare = new Comparator<Event>() {
+    private static Comparator<Event> dateTimeCompare = new Comparator<Event>() {
         
         @Override
         public int compare(Event e1, Event e2) {
@@ -157,7 +157,7 @@ public class Sort {
     };
 
     //comparator for Organizer
-    static Comparator<Event> organizerCompare = new Comparator<Event>() {
+    private static Comparator<Event> organizerCompare = new Comparator<Event>() {
         @Override
         public int compare(Event e1, Event e2) {
             return e1.getOrganizer().compareToIgnoreCase(e2.getOrganizer());
@@ -165,7 +165,7 @@ public class Sort {
     };
 
     //comparator for duration
-    static Comparator<Event> durationCompare = new Comparator<Event>() {
+    private static Comparator<Event> durationCompare = new Comparator<Event>() {
         @Override
         public int compare(Event e1, Event e2) {
             return Double.compare(e1.getDuration(), e2.getDuration());
