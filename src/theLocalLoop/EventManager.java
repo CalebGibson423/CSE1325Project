@@ -13,7 +13,8 @@ public class EventManager {
         
         MenuManager.printDisplayMenu(); //Print display options
         
-        int displayChoice = InputValidator.getValidInt(input, "Please enter your selection: ", 1, 5);
+        int displayChoice = input.nextInt();
+        input.nextLine();
         
         displayEvents(displayChoice, events, input);
     }
@@ -183,10 +184,12 @@ public class EventManager {
         int i = 1; //Counter for events displayed
 
         MenuManager.printSortMenu(); //Print sorting options
-        int sortChoice = InputValidator.getValidInt(input, "Please enter your selection: ", 1, 4);
+        int sortChoice = input.nextInt();
+        input.nextLine();
 
         MenuManager.printFilterMenu(); //Print filtering options
-        int filterChoice = InputValidator.getValidInt(input, "Please enter your selection: ", 1, 3);
+        int filterChoice = input.nextInt();
+        input.nextLine();
 
         //Get sorted and filtered list based on user choices
         LinkedList<Event> result = Sort.sortAndFilter(events, sortChoice, filterChoice, input);
@@ -217,7 +220,8 @@ public class EventManager {
         String location = ""; //where the event is taking place
 
         //enter name of event
-        name = InputValidator.getRequiredString(input, "Enter name of the event: ");
+        System.out.print("Enter the name of the event: ");
+        name = input.nextLine();
 
         //Enter date of event
         //Keep asking for date until valid input    
@@ -229,11 +233,6 @@ public class EventManager {
           try
           {
             date = LocalDate.parse(addDate, Constants.dateFormatter); //Parse Input
-
-            if(date.isBefore(LocalDate.now())) {
-                System.out.println("Date has already passed. Please enter a valid date.");
-                date = null;//set date back to null so that the loop can continue
-            }
           }
           catch(Exception e)
           {
@@ -259,22 +258,34 @@ public class EventManager {
         }
 
         //Enter duration of event
-        duration = InputValidator.getValidDouble(input, "Enter event duration in hours (e.g. 1.5): ");
+        System.out.print("Enter event duration in hours (e.g. 1.5):");
+        duration = input.nextDouble();
+        input.nextLine(); 
 
         //Enter types/tags for event
-        types = InputValidator.getValidTags(input, "Enter event types/tags (seperated by commas): ", Constants.ValidTags);
+        System.out.print("Enter event types/tags (separated by commas): ");
+        String typesInput = input.nextLine();
+        String[] typesArray = typesInput.split(",");
+        
+        for(String type: typesArray){
+            types.add(type.trim());
+        }
 
         //Enter format of event
-        format = InputValidator.getValidOption(input, "Enter the format (In person / Virtual / Hybrid): ", Constants.validFormats);
+        System.out.print("Enter the format of this event (In person/Virtual/Hybrid): ");
+        format = input.nextLine();
 
         //Enter organizer of event
-        organizer = InputValidator.getRequiredString(input, "Enter the organizer of this event: ");
+        System.out.print("Enter the organizer of this event: ");
+        organizer = input.nextLine();
 
         //Enter password for event if needed
-        password = InputValidator.getValidPassword(input, "Enter a password for this event(or leave blank if not needed): ");
+        System.out.print("Enter a password for this event (or leave blank if not needed): ");
+        password = input.nextLine();
 
         //Enter location of event
-        location = InputValidator.getRequiredString(input, "Enter location of this event: ");
+        System.out.print("Enter the location of this event: ");
+        location = input.nextLine();
 
         //Create new event object and add to list
         Event newEvent = new Event(name, date, time, duration, types, format, organizer, password, location);

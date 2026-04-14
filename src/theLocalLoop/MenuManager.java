@@ -15,6 +15,7 @@ public class MenuManager {
         System.out.println("5. Edit Event");
         System.out.println("6. Delete Event");
         System.out.println("7. Exit");
+        System.out.print("Please enter your selection: ");
   }
 
   public static void printDisplayMenu() { //Prints menu for display options
@@ -24,6 +25,7 @@ public class MenuManager {
         System.out.println("3. Events happening this month");
         System.out.println("4. Events happening at a later date");
         System.out.println("5. All events");
+        System.out.print("Please enter your selection: ");
   }
 
   public static void printFilterMenu() { //Prints menu for filtering options
@@ -31,6 +33,7 @@ public class MenuManager {
         System.out.println("1. By Type");
         System.out.println("2. By Organizer");
         System.out.println("3. No filtering");
+        System.out.print("Please enter your selection: ");
   }
 
   public static void printSortMenu() { //Prints menu for sorting options
@@ -39,6 +42,7 @@ public class MenuManager {
         System.out.println("2. By Date and Time");
         System.out.println("3. By Organizer");
         System.out.println("4. By Duration");
+        System.out.print("Please enter your selection: ");
   }
 
   //handle user choice for menu options
