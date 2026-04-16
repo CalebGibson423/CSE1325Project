@@ -9,15 +9,16 @@ A community based app where people can view community events in their area. User
 - `events.txt`: events file for storing events (automatically generatred)
 
 ## Files 
-- `Constants.java`: DateTime formatting
-- `Event.java`: Custom Event class with getters, setters, and toString methods
-- `EventManager.java`: Manages event operations, main logic of program
-- `FileManager.java`: Loads and Saves data to/from events.txt
-- `Main.java`: Main program loop
-- `MenuManager.java`: Method for printing menus and handling main menu input
-- `Sort.java`: Sorting and Filtering method with a method for handling user selections
-- `TestData.java`: Predefined events for testing
-- `events.txt`: Where Events are stored and loaded from at the start/end of the program
+- `Constants.java`: DateTime formatting and validTypes / validFormat for data validation.
+- `Event.java`: Custom Event class with a constructor, getters and setters for each attribute, and toString methods.
+- `EventManager.java`: Manages event operations, main logic of program.
+- `FileManager.java`: Loads and Saves data to/from events.txt.
+- `InputValidator.java`: Handles user input validation throughout the program.
+- `Main.java`: Main program loop.
+- `MenuManager.java`: Method for printing menus and handling main menu input.
+- `Sort.java`: Sorting and Filtering method with a method for handling user selections.
+- `TestData.java`: Predefined events for testing.
+- `events.txt`: Where Events are stored and loaded from at the start/end of the program.
 
 ## How to run and compile the project
 You can use one of the following 3 methods:

@@ -1,6 +1,11 @@
 package theLocalLoop;
 import java.util.*;
 
+/**
+ * Main class for The Local Loop application. 
+ * This class initializes the application, loads events from a file, and manages the main menu loop where users can interact with the application. 
+ * It also ensures that events are loaded and saved from/to the file when the application starts and exits, respectively.
+ */
 public class Main
 {
 
