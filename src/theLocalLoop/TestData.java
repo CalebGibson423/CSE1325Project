@@ -6,8 +6,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+/**
+ * The TestData class provides a method to load a sample list of events into a LinkedList. 
+ * Useful for testing purposes.
+ */
 public class TestData {
 
+    /**
+     * Loads a sample list of events into the provided LinkedList for testing purposes. 
+     * @param events
+     * Current list of events.
+     */
     public static void loadSampleEvents(LinkedList<Event> events){
         
     events.add(new Event(
@@ -129,5 +138,5 @@ public class TestData {
         "photo",
         "Arts Center"
     ));
-}
+    }
 }

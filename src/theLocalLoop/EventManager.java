@@ -6,9 +6,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * EventManager class handles the management of events in the application.
+ */
 public class EventManager {
 
-    //Handles user choice for how they want to view events
+    /**
+     * Handles user choice for how they want to display events based on time frame, then displays results.
+     * @param events
+     * LinkedList of Event objects representing the list of events to display from.
+     * @param input
+     * Scanner object for getting user input.
+     */
     public static void displayChoice(LinkedList<Event> events, Scanner input){
         
         MenuManager.printDisplayMenu(); //Print display options
@@ -18,7 +27,15 @@ public class EventManager {
         displayEvents(displayChoice, events, input);
     }
 
-    //Handles user choice for displaying events based on time frame
+    /**
+     * Displays events based on the user's choice of time frame.
+     * @param displayChoice
+     * Integer representing the user's choice for how they want to filter events by time frame (1: Today, 2: This Week, 3: This Month, 4: Later Date, 5: All Events).
+     * @param events
+     * LinkedList of Event objects representing the list of events to display from.
+     * @param input
+     * Scanner object for getting user input in case they choose to filter by a later date (displayChoice 4).
+     */
     public static void displayEvents(int displayChoice, LinkedList<Event> events, Scanner input){
         
         LocalDate today = LocalDate.now();
@@ -148,6 +165,13 @@ public class EventManager {
         }
     }
 
+    /**
+     * Handles user choice for how they want to search for an event by name, then displays results. 
+     * @param events
+     * LinkedList of Event objects representing the list of events to search from.
+     * @param input
+     * Scanner object for getting user input for the name of the event they want to search for.
+     */
     public static void searchEvents(LinkedList<Event> events, Scanner input){
         
         String eventName = "";
@@ -177,7 +201,13 @@ public class EventManager {
         }
     }
 
-    //Handles user choice for how they want to filter and sort events, then displays results
+    /**
+     * Handles user choice for how they want to filter and sort events, then displays results based on their choices.
+     * @param events
+     * LinkedList of Event objects representing the list of events to filter and sort from.
+     * @param input
+     * Scanner object for getting user input for how they want to filter and sort events.
+     */
     public static void filterAndSortEvents(LinkedList<Event> events, Scanner input){
        
         int i = 1; //Counter for events displayed
@@ -200,7 +230,13 @@ public class EventManager {
         }
     }
 
-    //Let user add event to list
+    /**
+     * Handles user choice for adding a new event, then prompts user for event details and adds new event to the list.
+     * @param events
+     * LinkedList of Event objects representing the list of events to add the new event to.
+     * @param input
+     * Scanner object for getting user input for the details of the new event they want to add.
+     */
     public static void addEvent(LinkedList<Event> events, Scanner input){
 
         //declare variables
@@ -262,7 +298,7 @@ public class EventManager {
         duration = InputValidator.getValidDouble(input, "Enter event duration in hours (e.g. 1.5): ");
 
         //Enter types/tags for event
-        types = InputValidator.getValidTags(input, "Enter event types/tags (seperated by commas): ", Constants.ValidTags);
+        types = InputValidator.getValidTags(input, "Enter event types/tags (seperated by commas): ", Constants.validTypes);
 
         //Enter format of event
         format = InputValidator.getValidOption(input, "Enter the format (In person / Virtual / Hybrid): ", Constants.validFormats);
@@ -282,12 +318,19 @@ public class EventManager {
 
     }
 
-    //Let user edit event in list
+    
     public static void editEvent(LinkedList<Event> events, Scanner input){
         //WIP
     }
 
-    //Let user delete event from list
+    /**
+     * Handles user choice for how they want to delete an event, then prompts user for the name of the event they want to delete 
+     * Deletes it from the list if found (after confirming password, if applicable).
+     * @param events
+     * LinkedList of Event objects representing the list of events to search from and delete the specified event from.
+     * @param input
+     * Scanner object for getting user input for the name of event and password (if applicable).
+     */
     public static void deleteEvent(LinkedList<Event> events, Scanner input){
 
         String eventName = "";

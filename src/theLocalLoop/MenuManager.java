@@ -3,45 +3,67 @@ package theLocalLoop;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * The MenuManager class handles the display and processing of the main menu options for various methods.
+ */
 public class MenuManager {
     
-    //Prints menu for user options
-    public static void printMenu() { //Prints menu for user options{
-        System.out.println("\n--- Main Menu ---");
-        System.out.println("1. View Local Events");
-        System.out.println("2. Search Local Events");
-        System.out.println("3. Sort and filter Events");
-        System.out.println("4. Add Event");
-        System.out.println("5. Edit Event");
-        System.out.println("6. Delete Event");
-        System.out.println("7. Exit");
+  /**
+   * Prints the main menu options to the console.
+   */
+  public static void printMenu() { 
+    System.out.println("\n--- Main Menu ---");
+    System.out.println("1. View Local Events");
+    System.out.println("2. Search Local Events");
+    System.out.println("3. Sort and filter Events");
+    System.out.println("4. Add Event");
+    System.out.println("5. Edit Event");
+    System.out.println("6. Delete Event");
+    System.out.println("7. Exit");
   }
 
-  public static void printDisplayMenu() { //Prints menu for display options
-        System.out.println("\nWould you like to see-   ");
-        System.out.println("1. Events happening today");
-        System.out.println("2. Events happening this week");
-        System.out.println("3. Events happening this month");
-        System.out.println("4. Events happening at a later date");
-        System.out.println("5. All events");
+  /**
+   * Prints the display menu options to the console for viewing events based on different time frames.
+   */
+  public static void printDisplayMenu() { 
+    System.out.println("\nWould you like to see-   ");
+    System.out.println("1. Events happening today");
+    System.out.println("2. Events happening this week");
+    System.out.println("3. Events happening this month");
+    System.out.println("4. Events happening at a later date");
+    System.out.println("5. All events");
   }
 
-  public static void printFilterMenu() { //Prints menu for filtering options
-        System.out.println("\nHow would you like to filter the events?   ");
-        System.out.println("1. By Type");
-        System.out.println("2. By Organizer");
-        System.out.println("3. No filtering");
+  /**
+   * Prints the filter menu options to the console for filtering events based on type, organizer, or no filtering.
+   */
+  public static void printFilterMenu() { 
+    System.out.println("\nHow would you like to filter the events?   ");
+    System.out.println("1. By Type");
+    System.out.println("2. By Organizer");
+    System.out.println("3. No filtering");
   }
 
-  public static void printSortMenu() { //Prints menu for sorting options
-        System.out.println("\nHow would you like to sort the events?   ");
-        System.out.println("1. By Name");
-        System.out.println("2. By Date and Time");
-        System.out.println("3. By Organizer");
-        System.out.println("4. By Duration");
+  /** 
+   * Prints the sort menu options to the console for sorting events based on name, date and time, organizer, or duration.
+  */
+  public static void printSortMenu() { 
+    System.out.println("\nHow would you like to sort the events?   ");
+    System.out.println("1. By Name");
+    System.out.println("2. By Date and Time");
+    System.out.println("3. By Organizer");
+    System.out.println("4. By Duration");
   }
 
-  //handle user choice for menu options
+  /**
+   * Handles the user's menu choice and calls the appropriate methods from the EventManager class based on the selected option.
+   * @param choice
+   * The user's menu choice as an integer.
+   * @param input
+   * A Scanner object for reading user input from the console.
+   * @param events
+   * A LinkedList of Event objects representing the list of events to be managed.
+   */
   public static void handleChoice(int choice, Scanner input, LinkedList<Event> events) {
 
       switch(choice)

@@ -6,9 +6,25 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * The Sort class provides methods for sorting and filtering a list of events based on user choices. 
+ * It includes methods for sorting by name, date and time, organizer, and duration, as well as filtering by type and organizer.
+ */
 public class Sort {
     
-    //Returns a sorted and filtered list of events based on user choices
+    /**
+     * Sorts and filters a list of events based on user choices for sorting and filtering criteria.
+     * @param events
+     * Current list of events.
+     * @param sortChoice
+     * User's choice for sorting criteria (1: Name, 2: Date and Time, 3: Organizer, 4: Duration).
+     * @param filterChoice
+     * User's choice for filtering criteria (1: Type, 2: Organizer, 3: No filtering).
+     * @param input
+     * Scanner object for user input.
+     * @return
+     * A new list of events with filtering and sorting choices applied.
+     */
     public static LinkedList<Event> sortAndFilter(LinkedList<Event> events, int sortChoice, int filterChoice, Scanner input){
 
         //Create a working list to sort and filter
@@ -66,33 +82,62 @@ public class Sort {
 
     //----- sorting -----
 
-    public static void sortByName(LinkedList<Event> eventList){
+    /**
+     * Sorts a list of events by their names in alphabetical order.
+     * @param events
+     * Current list of events.
+     */
+    public static void sortByName(LinkedList<Event> events){
 
-        Collections.sort(eventList, nameCompare);
+        Collections.sort(events, nameCompare);
     }
 
-    public static void sortByDateTime(LinkedList<Event> eventList){
+    /**
+     * Sorts a list of events by their date and time in chronological order.
+     * @param events
+     * Current list of events.
+     */
+    public static void sortByDateTime(LinkedList<Event> events){
 
-        Collections.sort(eventList, dateTimeCompare);
+        Collections.sort(events, dateTimeCompare);
     }
 
-    public static void sortByOrganizer(LinkedList<Event> eventList){
+    /**
+     * Sorts a list of events by their organizers in alphabetical order.
+     * @param events
+     * Current list of events.
+     */
+    public static void sortByOrganizer(LinkedList<Event> events){
   
-        Collections.sort(eventList, organizerCompare);
+        Collections.sort(events, organizerCompare);
     }
 
-    public static void sortByDuration(LinkedList<Event> eventList){
+    /**
+     * Sorts a list of events by their duration in ascending order.
+     * @param events
+     * Current list of events.
+     */
+    public static void sortByDuration(LinkedList<Event> events){
         
-        Collections.sort(eventList, durationCompare);
+        Collections.sort(events, durationCompare);
     }
 
     //-----filtering -----
 
-    public static LinkedList<Event> filterByType(LinkedList<Event> eventList, String targetType){
+    /**
+     * Filters a list of events by a specified type and returns a new list containing only the events that match the target type, ignoring case sensitivity.
+     * @param events
+     * Current list of events.
+     * @param targetType
+     * The type to filter by, inputted by the user.
+     * @return
+     * A new list of events that match the target type.
+     */
+    public static LinkedList<Event> filterByType(LinkedList<Event> events, String targetType){
     
         LinkedList<Event> eventListType = new LinkedList<>();
 
-        for(Event event : eventList){
+        for(Event event : events){
             for(String type: event.getTypes()){
 
                 if(type.equalsIgnoreCase(targetType)){
@@ -105,11 +150,20 @@ public class Sort {
         return eventListType;
     }
 
-    public static LinkedList<Event> filterByOrganizer(LinkedList<Event> eventList, String targetOrganizer){
+    /**
+     * Filters a list of events by a specified organizer and returns a new list containing only the events that match the target organizer, ignoring case sensitivity.
+     * @param events
+     * Current list of events.
+     * @param targetOrganizer
+     * The organizer to filter by, inputted by the user.
+     * @return
+     * A new list of events that match the target organizer.
+     */
+    public static LinkedList<Event> filterByOrganizer(LinkedList<Event> events, String targetOrganizer){
         
         LinkedList<Event> eventListOrganizer = new LinkedList<>();
 
-        for(Event event : eventList){
+        for(Event event : events){
             
             if(event.getOrganizer().equalsIgnoreCase(targetOrganizer)){
                 eventListOrganizer.add(event);
@@ -119,11 +173,20 @@ public class Sort {
         return eventListOrganizer;
     }
 
-    public static LinkedList<Event> filterByFormat(LinkedList<Event> eventList, String targetFormat){
+    /**
+     * Filters a list of events by a specified format and returns a new list containing only the events that match the target format, ignoring case sensitivity.
+     * @param events
+     * Current list of events.
+     * @param targetFormat
+     * The format to filter by, inputted by the user.
+     * @return
+     * A new list of events that match the target format.
+     */
+    public static LinkedList<Event> filterByFormat(LinkedList<Event> events, String targetFormat){
         
         LinkedList<Event> eventListOrganizer = new LinkedList<>();
 
-        for(Event event : eventList){
+        for(Event event : events){
             
             if(event.getFormat().equalsIgnoreCase(targetFormat)){
                 eventListOrganizer.add(event);
@@ -135,7 +198,9 @@ public class Sort {
 
     //----- comparators -----
 
-    //comparator for names
+    /**
+     * Comparator for event names that compares two events based on their names in alphabetical order.
+     */
     private static Comparator<Event> nameCompare = new Comparator<Event>() {
         @Override
         public int compare(Event e1, Event e2) {
@@ -143,7 +208,9 @@ public class Sort {
         }
     };
 
-    //comparator for date time
+    /**
+     * Comparator for event date and time that compares two events based on their date and time in chronological order.
+     */
     private static Comparator<Event> dateTimeCompare = new Comparator<Event>() {
         
         @Override
@@ -156,7 +223,9 @@ public class Sort {
         }
     };
 
-    //comparator for Organizer
+    /**
+     * Comparator for event organizers that compares two events based on their organizers in alphabetical order.
+     */
     private static Comparator<Event> organizerCompare = new Comparator<Event>() {
         @Override
         public int compare(Event e1, Event e2) {
@@ -164,7 +233,9 @@ public class Sort {
         }
     };
 
-    //comparator for duration
+    /**
+     * Comparator for event duration that compares two events based on their duration in ascending order.
+     */
     private static Comparator<Event> durationCompare = new Comparator<Event>() {
         @Override
         public int compare(Event e1, Event e2) {

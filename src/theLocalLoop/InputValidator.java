@@ -3,9 +3,26 @@ package theLocalLoop;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for validating user input throughout the application. <br>
+ * It provides methods to ensure that inputs are of the correct type and format, such as integers, doubles, non-empty strings, specific options, valid passwords, and valid tags. By centralizing input validation in this class, we can maintain cleaner code and ensure consistent validation across different parts of the application.
+ */
 public class InputValidator {
 
-    //checks for int in printMenu, printDisplayMenu, printFilterMenu, and printSortMenu
+    /**
+     * Prompts the user for an integer input and validates that it falls within a specified range. <br>
+     * Checks for integer in {@link #printMenu}, {@link #printDisplayMenu}, {@link #printFilterMenu}, and {@link #printSortMenu}
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @param min
+     * The minimum acceptable integer value (inclusive).
+     * @param max
+     * The maximum acceptable integer value (inclusive).
+     * @return
+     * The valid integer input provided by the user.
+     */
     public static int getValidInt(Scanner input, String prompt, int min, int max) {//for print menu
         int value = 0;
         boolean valid = false;
@@ -29,7 +46,16 @@ public class InputValidator {
         return value;
     }
 
-    //checks for double in addevent in EventManager
+    /**
+     * Prompts the user for a double input and validates that it is a positive number. <br>
+     * Checks for double in {@link #addEvent} in {@link EventManager}
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @return
+     * The valid double input provided by the user.
+     */
     public static double getValidDouble(Scanner input, String prompt) {
         double value = 0.0;
         boolean valid = false;
@@ -54,7 +80,16 @@ public class InputValidator {
         return value;
     }
 
-    //used in addevents in EventManager for name, organizer, and location
+    /**
+     * Prompts the user for a non-empty string input. <br>
+     * Checks for non-empty string in {@link #addEvent} in {@link EventManager} for name, organizer, and location
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @return
+     * The valid non-empty string input provided by the user.
+     */
     public static String getRequiredString(Scanner input, String prompt) {
         String value = "";
 
@@ -69,7 +104,18 @@ public class InputValidator {
         return value;
     }
 
-    //in add events for type of event
+    /**
+     * Prompts the user to select an option from a predefined list of valid options. <br>
+     * Checks for specific options in {@link #addEvent} in {@link EventManager} for type of event
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @param options
+     * An array of valid options that the user can choose from. The input will be validated against this list, ignoring case sensitivity.
+     * @return
+     * The valid option selected by the user, returned in the same case as defined in the options array.
+     */
     public static String getValidOption(Scanner input, String prompt, String[] options) {
         String value = "";
         boolean valid = false;
@@ -92,7 +138,16 @@ public class InputValidator {
         return value;
     }
 
-    //used in eventmanger addevent for password
+    /**
+     * Prompts the user for a password input and validates that it meets specific criteria, such as minimum length, presence of uppercase letters, numbers, and symbols. <br>
+     * Checks for password in {@link #addEvent} in {@link EventManager}
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @return
+     * The valid password input provided by the user. 
+     */
     public static String getValidPassword(Scanner input, String prompt) {
         String value = "";
         boolean valid = false;
@@ -123,6 +178,19 @@ public class InputValidator {
         return value;
     }
 
+    /**
+     * Prompts the user to enter a list of tags and validates that each tag is included in a predefined list of valid tags. <br>
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @param ValidTags
+     * An array of valid tags that the user can choose from. The input will be validated against this list, ignoring case sensitivity. <br>
+     * Users should enter tags separated by commas (e.g., "Music, Art, Technology").
+     * @return
+     * An ArrayList of valid tags selected by the user, returned in the same case as defined in the ValidTags array. <br>
+     * If any entered tag is invalid, the user will be prompted to re-enter the tags until all are valid and at least one tag is provided.
+     */
     //used for valid tags in addevents for eventmanageer
     public static ArrayList<String> getValidTags(Scanner input, String prompt, String[] ValidTags) {
         ArrayList<String> tags = new ArrayList<>();
