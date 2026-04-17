@@ -3,6 +3,7 @@
 A community based app where people can view community events in their area. Users can add, view, sort, and even delete events.
 
 ## Folder Structure
+- `doc`: Javadoc files
 - `src`: java files
 - `bin`: compiled files
 - `lib`: the folder to maintain dependencies
