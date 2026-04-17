@@ -200,6 +200,7 @@ public class FileManager
                     case 8: // Edit password?
                         String newPassword = edit;
                         current.setPassword(newPassword);
+                        break;
 
                     case 9: // Edit location
                         String newLocation = edit;
