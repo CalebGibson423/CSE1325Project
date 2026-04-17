@@ -184,6 +184,8 @@ public class FileManager
                         break;
 
                     case 5: // Edit types
+                        ArrayList<String> newTypes = edit.split(", ");
+                        current.setTypes(newTypes);
 
                     case 6: // Edit format
                         String newFormat = edit;
@@ -196,12 +198,12 @@ public class FileManager
                         break;
 
                     case 8: // Edit password?
+                        String newPassword = edit;
+                        current.setPassword(newPassword);
 
                     case 9: // Edit location
                         String newLocation = edit;
                         current.setLocation(newLocation);
-
-                    // More to come
                 }
                 eventList.set(i, current);
                 break;
