@@ -5,10 +5,19 @@ import java.util.LinkedList;
 import java.time.*;
 import static theLocalLoop.Constants.*;
 
+/**
+ * FileManager class for handling file input and output operations related to events. <br>
+ * Contains methods for saving events to a file, loading events from a file, adding an event to the file, and deleting an event from the file. <br>
+ */
 public class FileManager 
 {
 
-    //Write's the list of events to a file
+    /**
+     * Saves a list of events to a file called "events.txt". Each event is saved in the following format: <br>
+     * name | date | time | duration | type(s) | format | organizer | password | location <br>
+     * @param events
+     * LinkedList of Event objects representing the list of events to save to the file.
+     */
     public static void saveEvents(LinkedList<Event> events)
     {
         //Try Open/Create a file called "events.txt"
@@ -87,10 +96,10 @@ public class FileManager
 
                 //Creates new event object
                 Event newEvent = new Event(name, date, time, duration, typesList, format, organizer, password, location); 
-                events.add(newEvent);                   //Adds the event read from the line to a list
+                events.add(newEvent); //Adds the event read from the line to a list
             }
 
-            return events;              //Returns event list
+            return events; //Returns event list
 
         } 
         //If file fails
@@ -101,7 +110,13 @@ public class FileManager
         }
     }
 
-    //Add event to list
+    /**
+     * Adds an event to the file by first loading the current events from the file, adding the new event to the list, then saving the updated list back to the file.
+     * @param event
+     * Event object representing the event to add to the file.
+     * @return
+     * LinkedList of Event objects representing the updated list of events after adding the new event.
+     */
     public static LinkedList<Event> addEvent(Event event)
     {
         //Create list of current events to update
@@ -135,11 +150,15 @@ public class FileManager
             updatedEvents.add(event);
         }
     
-        saveEvents(updatedEvents);      //Update file with new event
-        return updatedEvents;           //Return new event list with added event
+        saveEvents(updatedEvents); //Update file with new event
+        return updatedEvents; //Return new event list with added event
     } 
 
-    //Delete Event from list
+    /**
+     * Deletes an event from the file by first loading the current events from the file, removing the specified event from the list, then saving the updated list back to the file.
+     * @param event
+     * Event object representing the event to delete from the file.
+     */
     public static void deleteEvent(Event event)
     {
         /*Whenever you ask a user which event they want to delete in main, loop through event names and hosts to determine if they have chosen the correct event to delete.
@@ -213,3 +232,15 @@ public class FileManager
         saveEvents(eventList);
     }
 }
+        LinkedList<Event> eventList = loadEvents(); //Create list of current events in file
+        for(int i = 0; i < eventList.size(); i++)
+        {
+            if(eventList.get(i).getName().equalsIgnoreCase(event.getName()))
+            {
+                eventList.remove(i);//remove event based on name
+            }
+        } 
+        saveEvents(eventList); //Save list with changes to file
+    }
+}
+
