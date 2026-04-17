@@ -239,6 +239,7 @@ public class Event
         location = newLocation;
     }
 
+    @Override
     /**
      * Returns a string representation of the event.
      * @return

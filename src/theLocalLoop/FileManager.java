@@ -166,6 +166,72 @@ public class FileManager
         If we implement servers, maybe there will be a way to recognize clients but idk how to do that. 
         */
 
+        LinkedList<Event> eventList = loadEvents();     //Create list of current events in file
+        eventList.remove(event);                        //Remove event from list
+        saveEvents(eventList);                          //Save list with changes to file
+    }
+
+    //Edit Event in list
+    public static void editEvent(Event event, int choice, String edit) // Attribute of event to change depends on user's choice
+    {
+        LinkedList<Event> eventList = loadEvents();
+        for (int i = 0; i < eventList.size(); i++)
+        {
+            Event current = eventList.get(i);
+            if (current.equals(event))
+            {
+                switch (choice)
+                {
+                    case 1: // Edit name
+                        String newName = edit;
+                        current.setName(newName);
+                        break;
+
+                    case 2: // Edit date
+                        LocalDate newDate = LocalDate.parse(edit, dateFormatter);
+                        current.setDate(newDate);
+                        break;
+
+                    case 3: // Edit time
+                        LocalTime newTime = LocalTime.parse(edit, timeFormatter);
+                        current.setTime(newTime);
+                        break;
+
+                    case 4: // Edit duration
+                        double newDuration = Double.parseDouble(edit);
+                        current.setDuration(newDuration);
+                        break;
+
+                    case 5: // Edit types
+                        ArrayList<String> newTypes = edit.split(", ");
+                        current.setTypes(newTypes);
+
+                    case 6: // Edit format
+                        String newFormat = edit;
+                        current.setFormat(newFormat);
+                        break;
+
+                    case 7: // Edit host
+                        String newOrganizer = edit;
+                        current.setHost(newOrganizer);
+                        break;
+
+                    case 8: // Edit password?
+                        String newPassword = edit;
+                        current.setPassword(newPassword);
+                        break;
+
+                    case 9: // Edit location
+                        String newLocation = edit;
+                        current.setLocation(newLocation);
+                }
+                eventList.set(i, current);
+                break;
+            }
+        }
+        saveEvents(eventList);
+    }
+}
         LinkedList<Event> eventList = loadEvents(); //Create list of current events in file
         for(int i = 0; i < eventList.size(); i++)
         {
