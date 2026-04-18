@@ -9,12 +9,12 @@ Food Truck Festival | 04-19-2026 | 12:00 | 6.0 | FOOD,FESTIVAL | IN_PERSON | Cit
 Hackathon Kickoff | 04-20-2026 | 09:00 | 8.0 | CODING,HACKATHON | IN_PERSON | DFW Hackers | hack2026 | Innovation Lab
 Photography Workshop | 04-21-2026 | 14:00 | 2.0 | ART,PHOTOGRAPHY | IN_PERSON | Creative Lens Group | photo | Arts Center
 Cybersecurity Bootcamp | 05-03-2026 | 10:00 | 3.0 | TECHNOLOGY,EDUCATION | ONLINE | SecureNet Academy | secure2026 | Online
-Downtown Jazz Night | 06-14-2026 | 19:30 | 4.0 | MUSIC,SOCIAL | IN_PERSON | City Arts Council | N/A | Downtown Amphitheater
-Indie Game Showcase | 07-08-2026 | 13:00 | 5.0 | GAMING,ESPORTS | ONLINE | GameDev Collective | indie2026 | Discord
-Summer Coding Camp | 06-22-2026 | 09:00 | 6.0 | CODING,EDUCATION | IN_PERSON | CodeForward | camp123 | UT Dallas Lab
-Farmers Market Meetup | 05-17-2026 | 08:00 | 3.5 | FOOD,COMMUNITY | IN_PERSON | Local Growers Assoc | N/A | Grand Prairie Market Square
-AI & Robotics Expo | 08-02-2026 | 11:00 | 7.0 | TECHNOLOGY,STARTUP | IN_PERSON | FutureTech Expo | robot2026 | Dallas Convention Center
-Sunset Photography Walk | 07-19-2026 | 18:30 | 2.0 | PHOTOGRAPHY,ART | IN_PERSON | Creative Lens Group | N/A | Lake Park Trail
 Charity Run 5K | 05-10-2026 | 07:00 | 2.5 | FITNESS,VOLUNTEERING | IN_PERSON | RunForHope | run2026 | City Stadium
+Farmers Market Meetup | 05-17-2026 | 08:00 | 3.5 | FOOD,COMMUNITY | IN_PERSON | Local Growers Assoc | N/A | Grand Prairie Market Square
+Downtown Jazz Night | 06-14-2026 | 19:30 | 4.0 | MUSIC,SOCIAL | IN_PERSON | City Arts Council | N/A | Downtown Amphitheater
+Summer Coding Camp | 06-22-2026 | 09:00 | 6.0 | CODING,EDUCATION | IN_PERSON | CodeForward | camp123 | UT Dallas Lab
+Indie Game Showcase | 07-08-2026 | 13:00 | 5.0 | GAMING,ESPORTS | ONLINE | GameDev Collective | indie2026 | Discord
+Sunset Photography Walk | 07-19-2026 | 18:30 | 2.0 | PHOTOGRAPHY,ART | IN_PERSON | Creative Lens Group | N/A | Lake Park Trail
+AI & Robotics Expo | 08-02-2026 | 11:00 | 7.0 | TECHNOLOGY,STARTUP | IN_PERSON | FutureTech Expo | robot2026 | Dallas Convention Center
 Book Author Q&A | 08-15-2026 | 16:00 | 1.5 | READING,DISCUSSION | ONLINE | Readers Hub | books | Zoom
 Cultural Food Fair | 09-05-2026 | 12:00 | 6.0 | FOOD,FESTIVAL,CULTURE | IN_PERSON | Global Eats Org | taste2026 | Fairgrounds Park

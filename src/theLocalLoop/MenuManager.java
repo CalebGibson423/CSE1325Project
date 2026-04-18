@@ -9,6 +9,13 @@ import java.util.Scanner;
 public class MenuManager {
     
   /**
+   * Private constructor to prevent instantiation.
+   */
+  private MenuManager() {
+      // Prevent instantiation
+  }
+
+  /**
    * Prints the main menu options to the console.
    */
   public static void printMenu() { 
@@ -28,8 +35,8 @@ public class MenuManager {
   public static void printDisplayMenu() { 
     System.out.println("\nWould you like to see-   ");
     System.out.println("1. Events happening today");
-    System.out.println("2. Events happening this week");
-    System.out.println("3. Events happening this month");
+    System.out.println("2. Events happening in the next week");
+    System.out.println("3. Events happening in the next month");
     System.out.println("4. Events happening at a later date");
     System.out.println("5. All events");
   }
@@ -53,6 +60,22 @@ public class MenuManager {
     System.out.println("2. By Date and Time");
     System.out.println("3. By Organizer");
     System.out.println("4. By Duration");
+  }
+
+  /** 
+   * Prints the edit menu options to the console for editing event attributes.
+   */
+  public static void printEditMenu() { 
+    System.out.println("\nWhich attribute would you like to edit?");
+    System.out.println("1. Name");
+    System.out.println("2. Date");
+    System.out.println("3. Time");
+    System.out.println("4. Duration");
+    System.out.println("5. Types");
+    System.out.println("6. Format");
+    System.out.println("7. Organizer");
+    System.out.println("8. Password");
+    System.out.println("9. Location");
   }
 
   /**

@@ -12,8 +12,15 @@ import java.util.ArrayList;
 public class InputValidator {
 
     /**
+     * Private constructor to prevent instantiation.
+     */
+    private InputValidator() {
+        // Prevent instantiation
+    }
+    
+    /**
      * Prompts the user for an integer input and validates that it falls within a specified range. <br>
-     * Checks for integer in {@link #printMenu}, {@link #printDisplayMenu}, {@link #printFilterMenu}, and {@link #printSortMenu}
+     * Checks for integer in PrintMenu, PrintDisplayMenu, PrintFilterMenu, and PrintSortMenu
      * @param input
      * The Scanner object used to read user input.
      * @param prompt
@@ -42,7 +49,7 @@ public class InputValidator {
                     valid = true;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a whole number.");
+                System.out.println("\nInvalid input. Please enter a whole number.");
             }
         }
         return value;
@@ -50,7 +57,7 @@ public class InputValidator {
 
     /**
      * Prompts the user for a double input and validates that it is a positive number. <br>
-     * Checks for double in {@link #addEvent} in {@link EventManager}
+     * Checks for double in addEvent in EventManager
      * @param input
      * The Scanner object used to read user input.
      * @param prompt
@@ -75,7 +82,7 @@ public class InputValidator {
                     valid = true;
             }   
             } catch (NumberFormatException e) {
-                System.out.println("Invalid Input. Please enter an actual number(e.g. 1.5).");
+                System.out.println("\nInvalid Input. Please enter an actual number(e.g. 1.5).");
             }
         }
 
@@ -84,7 +91,7 @@ public class InputValidator {
 
     /**
      * Prompts the user for a non-empty string input. <br>
-     * Checks for non-empty string in {@link #addEvent} in {@link EventManager} for name, organizer, and location
+     * Checks for non-empty string in addEvent in EventManager for name, organizer, and location
      * @param input
      * The Scanner object used to read user input.
      * @param prompt
@@ -100,7 +107,7 @@ public class InputValidator {
             value = input.nextLine().trim();
 
             if(value.isEmpty()) {
-                System.out.println("This field cannot be blank.");
+                System.out.println("\nThis field cannot be blank.");
             }
         }
         return value;
@@ -108,7 +115,7 @@ public class InputValidator {
 
     /**
      * Prompts the user to select an option from a predefined list of valid options. <br>
-     * Checks for specific options in {@link #addEvent} in {@link EventManager} for type of event
+     * Checks for specific options in addEvent in EventManager for type of event
      * @param input
      * The Scanner object used to read user input.
      * @param prompt
@@ -129,7 +136,7 @@ public class InputValidator {
                 }
             }
             
-            System.out.println("Invalid option. Please enter a valid format:");
+            System.out.println("\nInvalid option. Please enter a valid format:");
             for (ValidFormat option : ValidFormat.values()) {
                 System.out.println("- " + option.getDisplayName());
             }
@@ -138,7 +145,7 @@ public class InputValidator {
 
     /**
      * Prompts the user for a password input and validates that it meets specific criteria, such as minimum length, presence of uppercase letters, numbers, and symbols. <br>
-     * Checks for password in {@link #addEvent} in {@link EventManager}
+     * Checks for password in addEvent in EventManager
      * @param input
      * The Scanner object used to read user input.
      * @param prompt
@@ -158,16 +165,16 @@ public class InputValidator {
                 valid = true;//password can still be empty
             }
             else if(value.length() < 8) {
-                System.out.println("Password must at least be 8 characters.");
+                System.out.println("\nPassword must at least be 8 characters.");
             }
             else if(!value.matches(".*[A-Z].*")) {
-                System.out.println("Password must have at least one capital letter.");
+                System.out.println("\nPassword must have at least one capital letter.");
             }
             else if(!value.matches(".*[0-9].*")) {
-                System.out.println("Password must contain at least one number.");
+                System.out.println("\nPassword must contain at least one number.");
             }
             else if(!value.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\",./<>?].*")) {
-                System.out.println("Password must contain at least one symbol.");
+                System.out.println("\nPassword must contain at least one symbol.");
             }
             else {
                 valid = true;
@@ -235,7 +242,7 @@ public class InputValidator {
                 valid = true;
             }
             else if(types.isEmpty()) {
-                System.out.println("Please enter at least one type.");
+                System.out.println("\nPlease enter at least one type.");
             }
         }
         return types;

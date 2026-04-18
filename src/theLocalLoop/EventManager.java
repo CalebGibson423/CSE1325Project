@@ -19,6 +19,14 @@ import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
  */
 public class EventManager {
 
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private EventManager() {
+        // Prevent instantiationq
+    }
+
     /**
      * Handles user choice for how they want to display events based on time frame, then displays results.
      * @param events
@@ -72,13 +80,13 @@ public class EventManager {
                 }
 
                 if(!foundEvent){
-                    System.out.println("No events happening today...");
+                    System.out.println("\nNo events happening today...");
                 }
 
                 break;
 
-            case 2: //Events Happening This Week
-                System.out.println("\n--- Events Happening This Week ---");
+            case 2: //Events Happening in a week
+                System.out.println("\n--- Events Happening in the next Week ---");
                 LocalDate weekFromToday = today.plusDays(7);
             
                 for(Event e: events){
@@ -93,13 +101,13 @@ public class EventManager {
                 }
 
                 if(!foundEvent){
-                    System.out.println("No events happening this week...");
+                    System.out.println("\nNo events happening this upcoming week...");
                 }
 
                 break;
 
             case 3: //Events Happening This Month
-                System.out.println("\n--- Events Happening This Month ---");
+                System.out.println("\n--- Events Happening in the next Month ---");
                 LocalDate monthFromToday = today.plusDays(30);
                 
                 for(Event e: events){
@@ -114,7 +122,7 @@ public class EventManager {
                 }
 
                 if(!foundEvent){
-                    System.out.println("No events happening this month...");
+                    System.out.println("\nNo events happening this upcoming month...");
                 }
 
                 break;
@@ -125,13 +133,8 @@ public class EventManager {
                 int month = 0;
 
                 //get user input for month and year
-                System.out.print("Enter a year (YYYY): ");
-                year = input.nextInt();
-                input.nextLine();
-
-                System.out.print("Enter a month (1-12): ");
-                month = input.nextInt();
-                input.nextLine();
+                year = InputValidator.getValidInt(input, "Enter a year (YYYY): ", 1000, 9999);
+                month = InputValidator.getValidInt(input, "Enter a month (1-12): ", 1, 12);
 
                 //Create a LocalDate object for the first day of the specified month and year
                 LocalDate userDate = LocalDate.of(year, month, 1);
@@ -146,7 +149,7 @@ public class EventManager {
                 }
 
                 if(!foundEvent){
-                    System.out.println("No events happening at a the specified month and year...");
+                    System.out.println("\nNo events happening at a the specified month and year...");
                 }
 
                 break;
@@ -161,14 +164,14 @@ public class EventManager {
                 }
                 
                 if(!foundEvent){
-                    System.out.println("No events to display...");
+                    System.out.println("\nNo events to display...");
                 }
 
                 break;
 
             default: //Invalid Input Catch
 
-                System.out.println("Invalid Input, Enter 1, 2, 3, or 4, or 5...");
+                System.out.println("\nInvalid Input, Enter 1, 2, 3, or 4, or 5...");
                 return;
         }
     }
@@ -186,8 +189,7 @@ public class EventManager {
         boolean found = false;
         int i = 1; //Counter for events displayed
 
-        System.out.print("Enter the name of the event you would like to search for: ");
-        eventName = input.nextLine();
+        eventName = InputValidator.getRequiredString(input, "Enter the name of the event you would like to search for: ");
 
         //search through events to find event with the same name and display its details
         for(Event e: events){
@@ -205,7 +207,7 @@ public class EventManager {
         }
 
         if(!found){
-            System.out.println("Event not found.");
+            System.out.println("\nEvent not found.");
         }
     }
 
@@ -275,13 +277,13 @@ public class EventManager {
             date = LocalDate.parse(addDate, dateFormatter); //Parse Input
 
             if(date.isBefore(LocalDate.now())) {
-                System.out.println("Date has already passed. Please enter a valid date.");
+                System.out.println("\nDate has already passed. Please enter a valid date.");
                 date = null;//set date back to null so that the loop can continue
             }
           }
           catch(Exception e)
           {
-            System.out.println("Invalid Date Format. Please use MM-dd-yyyy...");
+            System.out.println("\nInvalid Date Format. Please use MM-dd-yyyy...");
           }
         }
 
@@ -298,14 +300,14 @@ public class EventManager {
           }
           catch(Exception e)
           {
-            System.out.println("Invalid Time Format. Please use HH:mm...");
+            System.out.println("\nInvalid Time Format. Please use HH:mm...");
           }
         }
 
         //Enter duration of event
         duration = InputValidator.getValidDouble(input, "Enter event duration in hours (e.g. 1.5): ");
 
-        //Enter types/tags for event
+        //Enter types for event
         types = InputValidator.getValidTypes(input, "Enter event types/tags (seperated by commas): ");
 
         //Enter format of event
@@ -326,9 +328,38 @@ public class EventManager {
 
     }
 
-    
+    /**
+     * Handles user choice for how they want to edit an event, then prompts user for the name of the event they want to edit and the details they want to edit, then updates the event with the new details.
+     * @param events
+     * LinkedList of Event objects representing the list of events to search from and edit the specified event from.
+     * @param input
+     * Scanner object for getting user input for the name of event, the details they want to edit, and the new details to update the event with.
+     */
     public static void editEvent(LinkedList<Event> events, Scanner input){
-        //WIP
+    
+        String nameOfEditedEvent = InputValidator.getRequiredString(input, "Enter the name of the event you want to edit: ");
+
+        for (Event event : events){
+            if (event.getName().equalsIgnoreCase(nameOfEditedEvent)){
+                int editChoice = 0;
+                boolean validEdit = false;
+                
+                while (!validEdit) {
+
+                    MenuManager.printEditMenu();
+                    editChoice = InputValidator.getValidInt(input, "Please enter your selection: ", 1, 9);
+                    
+                    if (editChoice >= 1 && editChoice <= 9){
+                        validEdit = true;
+                            
+                        String edit = InputValidator.getRequiredString(input, "Enter your edit: ");
+                        FileManager.editEvent(event, editChoice, edit);
+                    }
+                }
+                
+                break;
+            }
+        }
     }
 
     /**
@@ -344,34 +375,45 @@ public class EventManager {
         String eventName = "";
         boolean found = false;
 
-        System.out.print("Enter the name of the event you would like to delete: ");
-        eventName = input.nextLine();
+        eventName = InputValidator.getRequiredString(input, "Enter the name of the event you would like to delete: ");
 
-        //search through events to find event with the same name and delete it
+        //search through events to find event
         for(int i = 0; i < events.size(); i++){
-            if(eventName.equalsIgnoreCase(events.get(i).getName())){     
+            
+            Event current = events.get(i);
+
+            if(eventName.equalsIgnoreCase(current.getName())){
                 found = true;
-            }
 
-            //If event is found, check if it has a password and if so, ask user for password before deleting
-            if(found){
-                if(events.get(i).getPassword() != null && !events.get(i).getPassword().isEmpty()){
-                    System.out.print("This event is password protected. Please enter the password to delete: ");
-                    String password = input.nextLine();
+                //If event is password protected, ask user to enter password before deleting
+                if(current.getPassword() != null && !current.getPassword().isEmpty()){
 
-                    if(password.equals(events.get(i).getPassword())){
+                    String password = InputValidator.getRequiredString(input, "This event is password protected. Enter password to delete: ");
+
+                    //If password is correct, delete event
+                    if(password.equals(current.getPassword())){
                         events.remove(i);
-                        System.out.println("Event deleted successfully.");
+                        System.out.println("\nEvent deleted successfully.");
                     }
+                    //If password is incorrect, do not delete event 
                     else{
-                        System.out.println("Incorrect password. Event not deleted.");
+                        System.out.println("\nIncorrect password. Event not deleted.");
                     }
                 }
+                //If event is not password protected, delete event
                 else{
                     events.remove(i);
-                    System.out.println("Event deleted successfully.");
+                    System.out.println("\nEvent deleted successfully.");
                 }
+
+                return; //Exit method after deleting event
             }
         }
+
+        //If event is not found
+        if (!found) {
+        System.out.println("\nEvent not found.");
+        }
     }
+
 }

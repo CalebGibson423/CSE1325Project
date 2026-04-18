@@ -16,6 +16,13 @@ import theLocalLoop.Constants.ValidType;
 public class Sort {
     
     /**
+     * Private constructor to prevent instantiation.
+     */
+    private Sort() {
+        // Prevent instantiation
+    }
+
+    /**
      * Sorts and filters a list of events based on user choices for sorting and filtering criteria.
      * @param events
      * Current list of events.
@@ -37,17 +44,13 @@ public class Sort {
         switch(filterChoice)
         {
             case 1: //Filter by Type
-                System.out.print("Enter the type you would like to filter by: ");
-                input.nextLine();
-                String targetType = input.nextLine();
+                String targetType = InputValidator.getRequiredString(input, "Enter the type you would like to filter by: ");
 
                 workingList = filterByType(events, targetType);
                 break;
 
             case 2: //Filter by Organizer
-                System.out.print("Enter the organizer you would like to filter by: ");
-                input.nextLine();
-                String targetOrganizer = input.nextLine();
+                String targetOrganizer = InputValidator.getRequiredString(input, "Enter the organizer you would like to filter by: ");
 
                 workingList = filterByOrganizer(events, targetOrganizer);
                 break;
@@ -56,7 +59,7 @@ public class Sort {
                 break;
             
             default: //Invalid filtering choice catch
-                System.out.println("Invalid filtering choice, please enter 1 or 2...");
+                System.out.println("\nInvalid filtering choice, please enter 1 or 2...");
         }
 
         //Handle sorting choice
@@ -146,7 +149,7 @@ public class Sort {
             try {
                 target = ValidType.valueOf(targetType.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid type: " + targetType);
+                System.out.println("\nInvalid type: " + targetType);
                 return eventListType;
             }
 
@@ -209,7 +212,7 @@ public class Sort {
         }
 
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid format filter: " + targetFormat);
+            System.out.println("\nInvalid format filter: " + targetFormat);
         }
 
         return eventListOrganizer;
