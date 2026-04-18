@@ -1,7 +1,14 @@
 package theLocalLoop;
 import java.time.*;
 import java.util.*;
-import static theLocalLoop.Constants.*;
+
+//Valid Types and Formats
+import theLocalLoop.Constants.ValidType;
+import theLocalLoop.Constants.ValidFormat;
+
+//DateTime Formatters
+import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
+import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
 
 /**
  * Event class representing a single event in the application. <br>
@@ -15,8 +22,8 @@ public class Event
     private LocalDate date;
     private LocalTime time;
     private double duration;
-    private ArrayList<String> type;         //Art, Business, Fitness, Social, Community, Social Work, Service, Military, Holiday, Personal
-    private String format;                  //In-person, Virtual, Hybrid
+    private ArrayList<ValidType> types;         //Art, Business, Fitness, Social, Community, Social Work, Service, Military, Holiday, Personal
+    private ValidFormat format;                 //In-person, Virtual, Hybrid
     private String organizer;
     private String password;
     private String location; 
@@ -32,9 +39,9 @@ public class Event
      * @param duration
      * double representing the duration of the event in hours.
      * @param type
-     * ArrayList of strings representing the type(s) of the event ("Corporate & Business", "Social & Personal", "Community & Cultural", "Educational & Academic", "Sports & Recreational").
+     * ArrayList of ValidTypes representing the type(s) of the event ("Social, Educational, Coding, ect...").
      * @param format
-     * String representing the format of the event ("In-person", "Virtual", or "Hybrid").
+     * ValidFormat representing the format of the event ("In-person", "Virtual", or "Hybrid").
      * @param organizer
      * String representing the organizer(s) of the event.
      * @param password
@@ -42,13 +49,13 @@ public class Event
      * @param location
      * String representing the location of the event (If applicable).
      */
-    public Event(String name, LocalDate date, LocalTime time, double duration, ArrayList<String> type, String format, String organizer, String password, String location)
+    public Event(String name, LocalDate date, LocalTime time, double duration, ArrayList<ValidType> types, ValidFormat format, String organizer, String password, String location)
     {
         this.name = name;
         this.date = date;
         this.time = time;
         this.duration = duration;
-        this.type = type;
+        this.types = types;
         this.format = format;   
         this.organizer = organizer;
         this.password = password;
@@ -100,19 +107,19 @@ public class Event
     /**
      * Getter for the type(s) of the event.
      * @return
-     * ArrayList of strings representing the type(s) of the event ({@link Constants#validTypes Valid Types}).
+     * ArrayList of ValidTypes representing the type(s) of the event 
      */
-    public ArrayList<String> getTypes()
+    public ArrayList<ValidType> getTypes()
     {
-        return type;
+        return types;
     }
 
     /**
      * Getter for the format of the event.
      * @return
-     * String representing the format of the event ({@link Constants#validFormats Valid Formats}).
+     * ValidFormat representing the format of the event 
      */
-    public String getFormat()
+    public ValidFormat getFormat()
     {
         return format;
     }
@@ -192,19 +199,19 @@ public class Event
     /**
      * Setter for the type(s) of the event.
      * @param newTypes
-     * ArrayList of strings representing the new type(s) of the event ({@link Constants#validTypes Valid Types}).
+     * ArrayList of ValidTypes representing the new type(s) of the event 
      */
-    public void setTypes(ArrayList<String> newTypes)
+    public void setTypes(ArrayList<ValidType> newTypes)
     {
-        type = newTypes;
+        types = newTypes;
     }
 
     /**
      * Setter for the format of the event.
      * @param newFormat
-     * String representing the new format of the event ({@link Constants#validFormats Valid Formats}).
+     * ValidFormat representing the new format of the event 
      */
-    public void setFormat(String newFormat)
+    public void setFormat(ValidFormat newFormat)
     {
         format = newFormat;
     }  
@@ -248,13 +255,26 @@ public class Event
     public String toString()
     {
         String eventTypes = "";
-        for(int i = 0; i < type.size(); i++)
-        {
-            eventTypes += type.get(i);
-            if (i < type.size() - 1)
-            {
-                eventTypes += ", ";
+
+        //check if types is empty
+        if (types != null && !types.isEmpty()) {
+            for(int i = 0; i < types.size(); i++) {
+                eventTypes += types.get(i).getDisplayName();
+                if (i < types.size() - 1)
+                {
+                    eventTypes += ", ";
+                }
             }
+        } else {
+            eventTypes = "None";
+        }
+
+        String formatName = "";
+
+        if(format != null){
+            formatName = format.getDisplayName();
+        } else {
+            formatName = "none";
         }
 
         String eventInfo = (
@@ -263,7 +283,7 @@ public class Event
             "Time: " + time.format(timeFormatter) + "\n" +
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
-            "Format: " + format + "\n" +
+            "Format: " + formatName + "\n" +
             "Organizer(s): " + organizer + "\n" +
             "Location: " + location + "\n");
         return eventInfo;
@@ -277,7 +297,7 @@ public class Event
     public String toSummaryString(){
         String eventSummary = (
             name + " on " + date.format(dateFormatter) + " at " + time.format(timeFormatter) + " for " + duration + " hours\n" +
-            "Format: " + format + "\n" +
+            "Format: " + format.getDisplayName() + "\n" +
             "Organizer(s): " + organizer + "\n" +
             "Location: " + location + "\n");
         return eventSummary;

@@ -3,7 +3,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.time.*;
-import static theLocalLoop.Constants.*;
+
+//Valid Types and Formats
+import theLocalLoop.Constants.ValidType;
+import theLocalLoop.Constants.ValidFormat;
+
+//DateTime Formatters
+import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
+import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
 
 /**
  * FileManager class for handling file input and output operations related to events. <br>
@@ -26,16 +33,23 @@ public class FileManager
             //Loop through events
             for(int i = 0; i < events.size(); i++)
             {
+                //check if password is empty
+                String password = "";
+                if(events.get(i).getPassword().isEmpty()) {
+                    password = "N/A";
+                } else {
+                    password = events.get(i).getPassword();
+                }
                 //For each event, write event info in the following format
                 writer.write(
                     events.get(i).getName() + " | " +
                     events.get(i).getDate().format(dateFormatter) + " | " +
                     events.get(i).getTime().format(timeFormatter) + " | " +
                     events.get(i).getDuration() + " | " +
-                    String.join(",", events.get(i).getTypes()) + " | " +
-                    events.get(i).getFormat() + " | " +
+                    String.join(",", events.get(i).getTypes().stream().map(Enum::name).toList()) + " | " +
+                    events.get(i).getFormat().name() + " | " +
                     events.get(i).getOrganizer() + " | " + 
-                    events.get(i).getPassword() + " | " +
+                    password + " | " +
                     events.get(i).getLocation()
                 );
 
@@ -73,23 +87,30 @@ public class FileManager
                 LocalTime time = LocalTime.parse(eventParts[2], timeFormatter);
                 double duration = Double.parseDouble(eventParts[3]);
 
-                //Handles the "types" list and puts all types into an ArrayList
+                //Handles the "types" list and puts all types into an ArrayList<ValidType>
+                ArrayList<ValidType> typesList = new ArrayList<>();
                 String[] typesArray = eventParts[4].split(",");
-                ArrayList<String> typesList = new ArrayList<>();
 
-                for(int i = 0; i < typesArray.length; i++)
-                {
-                    typesList.add(typesArray[i]);
+                for (String t : typesArray) {
+                    try {
+                        typesList.add(ValidType.valueOf(t.trim().toUpperCase()));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid type ignored: " + t);
+                    }
                 }
 
-                //Puts event format into String
-                String format = eventParts[5];
+                //Puts event format into ValidFormat
+                ValidFormat format = ValidFormat.valueOf(eventParts[5].trim().toUpperCase());
 
                 //Puts event organizer into String
                 String organizer = eventParts[6];
 
                 //Puts event password into String
                 String password = eventParts[7];
+
+                if(password.equals("N/A")){
+                    password = "";
+                }
 
                 //Puts event location into String
                 String location = eventParts[8];
@@ -167,7 +188,7 @@ public class FileManager
         */
 
         LinkedList<Event> eventList = loadEvents();     //Create list of current events in file
-        eventList.remove(event);                        //Remove event from list
+        eventList.removeIf(e -> e.equals(event));       //Remove event from list
         saveEvents(eventList);                          //Save list with changes to file
     }
 
@@ -203,17 +224,33 @@ public class FileManager
                         break;
 
                     case 5: // Edit types
-                        ArrayList<String> newTypes = edit.split(", ");
-                        current.setTypes(newTypes);
+                        ArrayList<ValidType> newTypes = new ArrayList<>();
 
-                    case 6: // Edit format
-                        String newFormat = edit;
-                        current.setFormat(newFormat);
+                        String[] splitTypes = edit.split(",\\s*");
+                        for (String type : splitTypes) {
+                            try {
+                                newTypes.add(ValidType.valueOf(type.trim().toUpperCase()));
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Invalid type ignored: " + type);
+                            }
+                        }
+
+                        current.setTypes(newTypes);
                         break;
 
-                    case 7: // Edit host
+                    case 6: // Edit format
+                        ValidFormat newFormat;
+                        try {
+                            newFormat = ValidFormat.valueOf(edit.trim().toUpperCase());
+                            current.setFormat(newFormat);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid format ignored: " + edit);
+                        }
+                        break;
+
+                    case 7: // Edit Organizer
                         String newOrganizer = edit;
-                        current.setHost(newOrganizer);
+                        current.setOrganizer(newOrganizer);
                         break;
 
                     case 8: // Edit password?
@@ -232,15 +269,3 @@ public class FileManager
         saveEvents(eventList);
     }
 }
-        LinkedList<Event> eventList = loadEvents(); //Create list of current events in file
-        for(int i = 0; i < eventList.size(); i++)
-        {
-            if(eventList.get(i).getName().equalsIgnoreCase(event.getName()))
-            {
-                eventList.remove(i);//remove event based on name
-            }
-        } 
-        saveEvents(eventList); //Save list with changes to file
-    }
-}
-

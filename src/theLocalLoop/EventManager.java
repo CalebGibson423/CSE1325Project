@@ -6,6 +6,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+//Valid Types and Formats
+import theLocalLoop.Constants.ValidType;
+import theLocalLoop.Constants.ValidFormat;
+
+//DateTime Formatters
+import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
+import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
+
 /**
  * EventManager class handles the management of events in the application.
  */
@@ -246,8 +254,8 @@ public class EventManager {
         String addDate = ""; //User date given
         String addTime = ""; //User time given
         double duration = 0.0; //how long the event will last
-        ArrayList<String> types = new ArrayList<>(); //tags for the event
-        String format = ""; //how the event will take place 
+        ArrayList<ValidType> types = new ArrayList<>(); //tags for the event
+        ValidFormat format = null; //how the event will take place 
         String organizer = ""; //who is hosting the event
         String password = ""; //password for event if needed
         String location = ""; //where the event is taking place
@@ -264,7 +272,7 @@ public class EventManager {
           
           try
           {
-            date = LocalDate.parse(addDate, Constants.dateFormatter); //Parse Input
+            date = LocalDate.parse(addDate, dateFormatter); //Parse Input
 
             if(date.isBefore(LocalDate.now())) {
                 System.out.println("Date has already passed. Please enter a valid date.");
@@ -286,7 +294,7 @@ public class EventManager {
 
           try
           {
-            time = LocalTime.parse(addTime, Constants.timeFormatter); //Parse Input
+            time = LocalTime.parse(addTime, timeFormatter); //Parse Input
           }
           catch(Exception e)
           {
@@ -298,10 +306,10 @@ public class EventManager {
         duration = InputValidator.getValidDouble(input, "Enter event duration in hours (e.g. 1.5): ");
 
         //Enter types/tags for event
-        types = InputValidator.getValidTags(input, "Enter event types/tags (seperated by commas): ", Constants.validTypes);
+        types = InputValidator.getValidTypes(input, "Enter event types/tags (seperated by commas): ");
 
         //Enter format of event
-        format = InputValidator.getValidOption(input, "Enter the format (In person / Virtual / Hybrid): ", Constants.validFormats);
+        format = InputValidator.getValidOption(input, "Enter the format (In person / Virtual / Hybrid): ");
 
         //Enter organizer of event
         organizer = InputValidator.getRequiredString(input, "Enter the organizer of this event: ");
