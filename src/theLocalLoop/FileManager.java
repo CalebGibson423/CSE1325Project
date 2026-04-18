@@ -14,10 +14,20 @@ import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
 
 /**
  * FileManager class for handling file input and output operations related to events. <br>
- * Contains methods for saving events to a file, loading events from a file, adding an event to the file, and deleting an event from the file. <br>
+ * Contains methods for saving events to a file, loading events from a file, adding an event to the file, editing an event in the file, and deleting an event from the file. <br>
  */
 public class FileManager 
 {
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private FileManager() {
+        // Prevent instantiation
+    }
+
+    /** The name of the file to save events to. */
+    public static final String FILE_NAME = "events.txt";
 
     /**
      * Saves a list of events to a file called "events.txt". Each event is saved in the following format: <br>
@@ -27,8 +37,12 @@ public class FileManager
      */
     public static void saveEvents(LinkedList<Event> events)
     {
+
+        //Sort events by date and time before saving
+        Sort.sortByDateTime(events);
+
         //Try Open/Create a file called "events.txt"
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("events.txt"))) 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) 
         {
             //Loop through events
             for(int i = 0; i < events.size(); i++)
@@ -61,15 +75,19 @@ public class FileManager
         //If something goes wrong
         catch (IOException e) 
         {
-            System.out.println("An error occurred: " + e.getMessage());
+            System.out.println("\nAn error occurred: " + e.getMessage());
         }
     }
 
-    //Read events from a file
+    /**
+     * Loads events from a file called "events.txt" and returns them as a LinkedList of Event objects.
+     * @return
+     * LinkedList of Event objects representing the events loaded from the file. If the file does not exist or an error occurs while reading the file, an empty LinkedList is returned.
+     */
     public static LinkedList<Event> loadEvents()
     {
         //Try open file
-        try (BufferedReader reader = new BufferedReader(new FileReader("events.txt"))) 
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) 
         {
             
             LinkedList<Event> events = new LinkedList<Event>();
@@ -80,6 +98,11 @@ public class FileManager
             {
                 //Splits the line (event info)
                 String[] eventParts = line.split(" \\| ");
+
+                //check if line is in the correct format
+                if(eventParts.length != 9){
+                    continue;
+                }
 
                 //Put event info into proper types
                 String name = eventParts[0];
@@ -95,7 +118,7 @@ public class FileManager
                     try {
                         typesList.add(ValidType.valueOf(t.trim().toUpperCase()));
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid type ignored: " + t);
+                        System.out.println("\nInvalid type ignored: " + t);
                     }
                 }
 
@@ -126,7 +149,7 @@ public class FileManager
         //If file fails
         catch (IOException e) 
         {
-            System.out.println("An error occurred: " + e.getMessage());
+            System.out.println("\nAn error occurred: " + e.getMessage());
             return new LinkedList<>();
         }
     }
@@ -192,7 +215,15 @@ public class FileManager
         saveEvents(eventList);                          //Save list with changes to file
     }
 
-    //Edit Event in list
+    /**
+     * Edits an event in the file by first loading the current events from the file, finding the specified event in the list and updating its details, then saving the updated list back to the file. <br>
+     * @param event
+     * Event object representing the event to edit in the file. 
+     * @param choice
+     * Integer representing the attribute of the event to edit, where 1 = name, 2 = date, 3 = time, 4 = duration, 5 = types, 6 = format, 7 = organizer, 8 = password, and 9 = location.
+     * @param edit
+     * String representing the new details to update the event with, where the format of the string depends on the attribute being edited.
+     */
     public static void editEvent(Event event, int choice, String edit) // Attribute of event to change depends on user's choice
     {
         LinkedList<Event> eventList = loadEvents();
@@ -231,7 +262,7 @@ public class FileManager
                             try {
                                 newTypes.add(ValidType.valueOf(type.trim().toUpperCase()));
                             } catch (IllegalArgumentException e) {
-                                System.out.println("Invalid type ignored: " + type);
+                                System.out.println("\nInvalid type ignored: " + type);
                             }
                         }
 
@@ -244,7 +275,7 @@ public class FileManager
                             newFormat = ValidFormat.valueOf(edit.trim().toUpperCase());
                             current.setFormat(newFormat);
                         } catch (IllegalArgumentException e) {
-                            System.out.println("Invalid format ignored: " + edit);
+                            System.out.println("\nInvalid format ignored: " + edit);
                         }
                         break;
 

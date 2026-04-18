@@ -16,6 +16,13 @@ import theLocalLoop.Constants.ValidFormat;
 public class TestData {
 
     /**
+     * Private constructor to prevent instantiation.
+     */
+    private TestData() {
+        // Prevent instantiation
+    }
+
+    /**
      * Loads a sample list of events into the provided LinkedList for testing purposes. 
      * @param events
      * Current list of events.

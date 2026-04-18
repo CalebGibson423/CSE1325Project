@@ -9,8 +9,21 @@ import java.util.*;
 public class Main
 {
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private Main() {
+        // Prevent instantiation
+    }
+
+  /** The Scanner object used to read user input. */
   public static Scanner input = new Scanner(System.in);
 
+  /**
+   * The main method that serves as the entry point for the application.
+   * @param args
+   * An array of String arguments passed from the command line (not used in this application).
+   */
   public static void main(String[] args)
   {
     //Load events from file into list
@@ -41,42 +54,6 @@ public class Main
     //Exit Message
     System.out.println("\nThank you for using the Local Loop!");
 
-  }
-  
-  public static void userEdit(Scanner input, LinkedList<Event> eventList)
-  {
-    System.out.print("Enter the name of the event you want to edit: ");
-    String nameOfEditedEvent = input.nextLine();
-
-    for (Event event : eventList){
-      if (event.getName() == nameOfEditedEvent){
-        int editChoice = 0;
-        boolean validEdit = false;
-        while (!validEdit)
-        {
-          System.out.println("\nWhich attribute would you like to edit?");
-          System.out.println("1. Name");
-          System.out.println("2. Date");
-          System.out.println("3. Time");
-          System.out.println("4. Duration");
-          System.out.println("5. Types");
-          System.out.println("6. Format");
-          System.out.println("7. Organizer");
-          System.out.println("8. Password");
-          System.out.println("9. Location");
-          editChoice = input.nextInt();
-          input.nextLine();
-          
-          if (editChoice >= 1 && editChoice <= 9){
-            validEdit = true;
-            System.out.print("\nEnter your edit: ");
-            String edit = input.nextLine();
-            FileManager.editEvent(event, editChoice, edit);
-          }
-        }
-        break;
-      }
-    }
   }
 }
 

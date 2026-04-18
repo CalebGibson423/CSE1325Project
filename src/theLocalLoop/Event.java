@@ -38,7 +38,7 @@ public class Event
      * LocalTime object representing the time of the event.
      * @param duration
      * double representing the duration of the event in hours.
-     * @param type
+     * @param types
      * ArrayList of ValidTypes representing the type(s) of the event ("Social, Educational, Coding, ect...").
      * @param format
      * ValidFormat representing the format of the event ("In-person", "Virtual", or "Hybrid").
@@ -111,9 +111,9 @@ public class Event
      */
     public ArrayList<ValidType> getTypes()
     {
-        return types;
+        return new ArrayList<>(types);
     }
-
+    
     /**
      * Getter for the format of the event.
      * @return
@@ -295,11 +295,34 @@ public class Event
      * String representing a summary of the event, including only the name, date, time, duration, format, organizer(s), and location.
      */
     public String toSummaryString(){
+
+        String formatName = "";
+
+        if(format != null){
+            formatName = format.getDisplayName();
+        } else {
+            formatName = "none";
+        }
+
         String eventSummary = (
             name + " on " + date.format(dateFormatter) + " at " + time.format(timeFormatter) + " for " + duration + " hours\n" +
-            "Format: " + format.getDisplayName() + "\n" +
+            "Format: " + formatName + "\n" +
             "Organizer(s): " + organizer + "\n" +
             "Location: " + location + "\n");
         return eventSummary;
     }
+
+    @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+
+            if (obj == null || getClass() != obj.getClass())
+                return false;
+
+            Event other = (Event) obj;
+
+            return name.equalsIgnoreCase(other.name)
+                && date.equals(other.date)
+                && time.equals(other.time);
+        }
 }
