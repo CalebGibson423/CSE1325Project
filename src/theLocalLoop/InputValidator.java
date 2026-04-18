@@ -1,11 +1,13 @@
 package theLocalLoop;
-
 import java.util.Scanner;
+
+import theLocalLoop.Constants.ValidFormat;
+import theLocalLoop.Constants.ValidType;
 import java.util.ArrayList;
 
 /**
  * This class is responsible for validating user input throughout the application. <br>
- * It provides methods to ensure that inputs are of the correct type and format, such as integers, doubles, non-empty strings, specific options, valid passwords, and valid tags. By centralizing input validation in this class, we can maintain cleaner code and ensure consistent validation across different parts of the application.
+ * It provides methods to ensure that inputs are of the correct type and format, such as integers, doubles, non-empty strings, specific options, valid passwords, and valid types. By centralizing input validation in this class, we can maintain cleaner code and ensure consistent validation across different parts of the application.
  */
 public class InputValidator {
 
@@ -111,31 +113,27 @@ public class InputValidator {
      * The Scanner object used to read user input.
      * @param prompt
      * The message displayed to the user when asking for input.
-     * @param options
-     * An array of valid options that the user can choose from. The input will be validated against this list, ignoring case sensitivity.
      * @return
      * The valid option selected by the user, returned in the same case as defined in the options array.
      */
-    public static String getValidOption(Scanner input, String prompt, String[] options) {
-        String value = "";
-        boolean valid = false;
+    public static ValidFormat getValidOption(Scanner input, String prompt) {
 
-        while(!valid) {
+        while(true) {
             System.out.print(prompt);
-            value = input.nextLine().trim();
-            for(String option : options) {
-                if(option.equalsIgnoreCase(value)) {
-                    valid = true;
-                    value = option;
-                    break;
+            String value = input.nextLine().trim();
+
+            for(ValidFormat option : ValidFormat.values()) {
+                
+                if(option.getDisplayName().equalsIgnoreCase(value)) {
+                    return option;
                 }
             }
-            if(!valid) {
-                System.out.print("Invalid option. Please enter one of: ");
-                System.out.println(String.join(", ", options));
+            
+            System.out.println("Invalid option. Please enter a valid format:");
+            for (ValidFormat option : ValidFormat.values()) {
+                System.out.println("- " + option.getDisplayName());
             }
         }
-        return value;
     }
 
     /**
@@ -179,59 +177,67 @@ public class InputValidator {
     }
 
     /**
-     * Prompts the user to enter a list of tags and validates that each tag is included in a predefined list of valid tags. <br>
+     * Prompts the user to enter a list of types and validates that each type is included in part of the ValidType enum class. <br>
      * @param input
      * The Scanner object used to read user input.
      * @param prompt
      * The message displayed to the user when asking for input.
-     * @param ValidTags
-     * An array of valid tags that the user can choose from. The input will be validated against this list, ignoring case sensitivity. <br>
-     * Users should enter tags separated by commas (e.g., "Music, Art, Technology").
      * @return
-     * An ArrayList of valid tags selected by the user, returned in the same case as defined in the ValidTags array. <br>
-     * If any entered tag is invalid, the user will be prompted to re-enter the tags until all are valid and at least one tag is provided.
+     * An ArrayList of valid types selected by the user <br>
+     * If any entered type is invalid, the user will be prompted to re-enter the types until all are valid and at least one type is provided.
      */
     //used for valid tags in addevents for eventmanageer
-    public static ArrayList<String> getValidTags(Scanner input, String prompt, String[] ValidTags) {
-        ArrayList<String> tags = new ArrayList<>();
+    public static ArrayList<ValidType> getValidTypes(Scanner input, String prompt) {
+        ArrayList<ValidType> types = new ArrayList<>();
         boolean valid = false;
 
-        System.out.println("Valid Tags: " + String.join(", ", ValidTags));
+        System.out.println("Valid Types: " );
+        ValidType[] validTypes = ValidType.values();
+
+        for (int i = 0; i < validTypes.length; i++){
+            System.out.print(validTypes[i].getDisplayName());
+
+            if (i < validTypes.length - 1) {
+                System.out.print(", ");
+            }
+        }
+
+        System.out.println();
 
         while(!valid) {
             System.out.print(prompt);
             String line = input.nextLine().trim();
-            String[] entered = line.split(",");//split the tags at , because they should be entered as tag, tag, etc
+            String[] entered = line.split(",");//split the types at , because they should be entered as type, type, etc
 
-            tags.clear();//reset if there was a retry
+            types.clear();//reset if there was a retry
 
             boolean allValid = true;
 
             for(String tag: entered) {
-                String trimmed = tag.trim();//trim every tag of whitespace at the end or before the string
+                String trimmed = tag.trim();//trim every types of whitespace at the end or before the string
                 boolean found = false;
 
-                for(String validTag: ValidTags) {
-                    if(validTag.equalsIgnoreCase(trimmed)) {
-                        tags.add(validTag);
+                for(ValidType v: validTypes) {
+                    if(v.getDisplayName().equalsIgnoreCase(trimmed)) {
+                        types.add(v);
                         found = true;
                         break;
                     }
                 }
                 
                 if(!found) {
-                    System.out.println("\"" + trimmed + "\" is not a valid tag.");
+                    System.out.println("\"" + trimmed + "\" is not a valid type.");
                     allValid = false;
                 }
             }
 
-            if(allValid && !tags.isEmpty()) {
+            if(allValid && !types.isEmpty()) {
                 valid = true;
             }
-            else if(tags.isEmpty()) {
-                System.out.println("Please enter at least one tag.");
+            else if(types.isEmpty()) {
+                System.out.println("Please enter at least one type.");
             }
         }
-        return tags;
+        return types;
     }
 }

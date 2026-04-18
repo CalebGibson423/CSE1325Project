@@ -6,6 +6,9 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import theLocalLoop.Constants.ValidFormat;
+import theLocalLoop.Constants.ValidType;
+
 /**
  * The Sort class provides methods for sorting and filtering a list of events based on user choices. 
  * It includes methods for sorting by name, date and time, organizer, and duration, as well as filtering by type and organizer.
@@ -35,6 +38,7 @@ public class Sort {
         {
             case 1: //Filter by Type
                 System.out.print("Enter the type you would like to filter by: ");
+                input.nextLine();
                 String targetType = input.nextLine();
 
                 workingList = filterByType(events, targetType);
@@ -42,6 +46,7 @@ public class Sort {
 
             case 2: //Filter by Organizer
                 System.out.print("Enter the organizer you would like to filter by: ");
+                input.nextLine();
                 String targetOrganizer = input.nextLine();
 
                 workingList = filterByOrganizer(events, targetOrganizer);
@@ -137,10 +142,18 @@ public class Sort {
     
         LinkedList<Event> eventListType = new LinkedList<>();
 
-        for(Event event : events){
-            for(String type: event.getTypes()){
+            ValidType target;
+            try {
+                target = ValidType.valueOf(targetType.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid type: " + targetType);
+                return eventListType;
+            }
 
-                if(type.equalsIgnoreCase(targetType)){
+        for(Event event : events){
+            for (ValidType type : event.getTypes()){
+
+                if(type == target){
                     eventListType.add(event);
                     break;
                 }
@@ -186,11 +199,17 @@ public class Sort {
         
         LinkedList<Event> eventListOrganizer = new LinkedList<>();
 
-        for(Event event : events){
-            
-            if(event.getFormat().equalsIgnoreCase(targetFormat)){
+        try {
+        ValidFormat tf = ValidFormat.valueOf(targetFormat.toUpperCase());
+
+        for (Event event : events) {
+            if (event.getFormat() == tf) {
                 eventListOrganizer.add(event);
             }
+        }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid format filter: " + targetFormat);
         }
 
         return eventListOrganizer;

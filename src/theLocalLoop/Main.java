@@ -16,13 +16,14 @@ public class Main
     //Load events from file into list
     LinkedList<Event> eventList = FileManager.loadEvents();     
 
+    //Welcome Message
+    System.out.println("Welcome to the Local Loop!");
+
     //load sample events into list if file is empty
     if (eventList.isEmpty()){
       TestData.loadSampleEvents(eventList);
+      System.out.println("Loaded sample data.");
     }
-    
-    //Welcome Message
-    System.out.println("Welcome to the Local Loop!");
   
     //Main Loop
     int choice = 0;
@@ -38,7 +39,7 @@ public class Main
     FileManager.saveEvents(eventList);
 
     //Exit Message
-    System.out.println("Thank you for using the Local Loop!");
+    System.out.println("\nThank you for using the Local Loop!");
 
   }
   
@@ -77,7 +78,6 @@ public class Main
       }
     }
   }
-}
 }
 
     
