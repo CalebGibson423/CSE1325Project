@@ -2,6 +2,7 @@ package theLocalLoop;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Scanner;
 import java.time.*;
 
 //Valid Types and Formats
@@ -219,84 +220,101 @@ public class FileManager
      * Edits an event in the file by first loading the current events from the file, finding the specified event in the list and updating its details, then saving the updated list back to the file. <br>
      * @param event
      * Event object representing the event to edit in the file. 
-     * @param choice
-     * Integer representing the attribute of the event to edit, where 1 = name, 2 = date, 3 = time, 4 = duration, 5 = types, 6 = format, 7 = organizer, 8 = password, and 9 = location.
-     * @param edit
-     * String representing the new details to update the event with, where the format of the string depends on the attribute being edited.
+     * @param input
+     * Scanner object for user input to determine which attribute of the event to edit and the new value for that attribute. 
      */
-    public static void editEvent(Event event, int choice, String edit) // Attribute of event to change depends on user's choice
+    public static void editEvent(Event event, Scanner input) // Attribute of event to change depends on user's choice
     {
-        LinkedList<Event> eventList = loadEvents();
-        for (int i = 0; i < eventList.size(); i++)
-        {
-            Event current = eventList.get(i);
-            if (current.equals(event))
-            {
-                switch (choice)
-                {
-                    case 1: // Edit name
-                        String newName = edit;
-                        current.setName(newName);
-                        break;
+        boolean editing = true;
 
-                    case 2: // Edit date
-                        LocalDate newDate = LocalDate.parse(edit, dateFormatter);
-                        current.setDate(newDate);
-                        break;
+        //Check if event is password protected and if so, ask user for password and check if it is correct before allowing them to edit the event
+        if (!event.getPassword().isEmpty()) {
 
-                    case 3: // Edit time
-                        LocalTime newTime = LocalTime.parse(edit, timeFormatter);
-                        current.setTime(newTime);
-                        break;
+            String attempt = InputValidator.getRequiredString(input,"\nThis event is password protected. Enter password to continue: ");
 
-                    case 4: // Edit duration
-                        double newDuration = Double.parseDouble(edit);
-                        current.setDuration(newDuration);
-                        break;
+            if (!attempt.equals(event.getPassword())) {
 
-                    case 5: // Edit types
-                        ArrayList<ValidType> newTypes = new ArrayList<>();
-
-                        String[] splitTypes = edit.split(",\\s*");
-                        for (String type : splitTypes) {
-                            try {
-                                newTypes.add(ValidType.valueOf(type.trim().toUpperCase()));
-                            } catch (IllegalArgumentException e) {
-                                System.out.println("\nInvalid type ignored: " + type);
-                            }
-                        }
-
-                        current.setTypes(newTypes);
-                        break;
-
-                    case 6: // Edit format
-                        ValidFormat newFormat;
-                        try {
-                            newFormat = ValidFormat.valueOf(edit.trim().toUpperCase());
-                            current.setFormat(newFormat);
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("\nInvalid format ignored: " + edit);
-                        }
-                        break;
-
-                    case 7: // Edit Organizer
-                        String newOrganizer = edit;
-                        current.setOrganizer(newOrganizer);
-                        break;
-
-                    case 8: // Edit password?
-                        String newPassword = edit;
-                        current.setPassword(newPassword);
-                        break;
-
-                    case 9: // Edit location
-                        String newLocation = edit;
-                        current.setLocation(newLocation);
-                }
-                eventList.set(i, current);
-                break;
+                System.out.println("\nIncorrect password. Access denied.");
+                return;
             }
+
+            System.out.println("\nPassword accepted. You may now edit the event.");
         }
-        saveEvents(eventList);
+
+        while(editing){
+
+            MenuManager.printEditMenu();
+            int choice = InputValidator.getValidInt(input, "Please enter your selection (10 to finish editing): ", 1, 10);
+            
+            if(choice == 10){
+                editing = false;
+                System.out.println("\nFinished editing event.");
+                continue;
+            }
+
+            switch (choice){
+            case 1: // Edit name
+                String newName = InputValidator.getRequiredString(input, "Enter the new name: ");
+                event.setName(newName);
+                System.out.println("\nEvent name updated successfully to '" + newName + "'.");
+                break;
+
+            case 2: // Edit date
+                LocalDate newDate = InputValidator.getValidDate(input, "Enter the new date (MM-dd-yyyy): ");
+                event.setDate(newDate);
+                System.out.println("\nEvent date updated successfully to '" + newDate.format(dateFormatter) + "'.");
+                break;
+
+            case 3: // Edit time
+                LocalTime newTime = InputValidator.getValidTime(input, "Enter the new time (HH:mm, e.g. 14:30 for 2:30 PM): ");
+                event.setTime(newTime);
+                System.out.println("\nEvent time updated successfully to '" + newTime.format(timeFormatter) + "'.");
+                break;
+
+            case 4: // Edit duration
+                double newDuration = InputValidator.getValidDouble(input, "Enter the new duration in hours (e.g. 1.5): ");
+                event.setDuration(newDuration);
+                System.out.println("\nEvent duration updated successfully to '" + newDuration + " hours'.");
+                break;
+
+            case 5: // Edit types
+                ArrayList<ValidType> newTypes = InputValidator.getValidTypes(input, "Enter the new types/tags (separated by commas): ");
+
+                event.setTypes(newTypes);
+                System.out.println("\nEvent types updated successfully to '" + String.join(", ", newTypes.stream().map(Enum::name).toList()) + "'.");
+                break;
+
+            case 6: // Edit format
+                ValidFormat newFormat = InputValidator.getValidFormat(input, "Enter the new format (In person / Virtual / Hybrid): ");
+
+                event.setFormat(newFormat);
+                System.out.println("\nEvent format updated successfully to '" + newFormat.name() + "'.");
+                break;
+
+            case 7: // Edit Organizer
+                String newOrganizer = InputValidator.getRequiredString(input, "Enter the new organizer: ");
+                event.setOrganizer(newOrganizer);
+                System.out.println("\nEvent organizer updated successfully to '" + newOrganizer + "'.");
+                break;
+
+            case 8: // Edit password
+                
+                String newPassword = InputValidator.getValidPassword(input, "Enter the new password (or leave blank if not needed): ");
+                event.setPassword(newPassword);
+                
+                if(newPassword.isEmpty()) {
+                    newPassword = "N/A";
+                }
+
+                System.out.println("\nEvent password updated successfully to '" + newPassword + "'.");
+                break;
+
+            case 9: // Edit location
+                String newLocation = InputValidator.getRequiredString(input, "Enter the new location: ");
+                event.setLocation(newLocation);
+                System.out.println("\nEvent location updated successfully to '" + newLocation + "'.");
+                break;
+            }    
+        }
     }
 }

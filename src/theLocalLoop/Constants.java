@@ -123,8 +123,10 @@ public class Constants {
          */
         public static ValidType fromString(String input) {
 
+            String normalized = input.trim().replace(" ", "_");
+
             for (ValidType type : ValidType.values()) {
-                if (type.displayName.equalsIgnoreCase(input)) {
+                if (type.getDisplayName().equalsIgnoreCase(normalized) || type.getDisplayName().equalsIgnoreCase(input)) {
                     return type;
                 }
             }
