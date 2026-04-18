@@ -6,6 +6,11 @@ A community based app where people can view community events in their area. User
 
 [Javadoc Index for theLocalLoop](https://calebgibson423.github.io/CSE1325Project/)
 
+### To Run Javadoc, paste command in terminal:
+   ```bash
+   javadoc -d docs -sourcepath src theLocalLoop
+   ```
+
 ## Folder Structure
 - `docs`: Javadoc files
 - `src`: java files
