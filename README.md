@@ -2,6 +2,10 @@
 
 A community based app where people can view community events in their area. Users can add, view, sort, and even delete events.
 
+## JavaDoc Documentation
+
+[Javadoc Index for theLocalLoop](https://calebgibson423.github.io/CSE1325Project/)
+
 ## Folder Structure
 - `docs`: Javadoc files
 - `src`: java files
