@@ -1,9 +1,18 @@
 package theLocalLoop;
 import java.util.Scanner;
 
-import theLocalLoop.Constants.ValidFormat;
-import theLocalLoop.Constants.ValidType;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+
+//Valid Types and Formats
+import theLocalLoop.Constants.ValidType;
+import theLocalLoop.Constants.ValidFormat;
+
+//DateTime Formatters
+import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
+import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
+
 
 /**
  * This class is responsible for validating user input throughout the application. <br>
@@ -123,23 +132,36 @@ public class InputValidator {
      * @return
      * The valid option selected by the user, returned in the same case as defined in the options array.
      */
-    public static ValidFormat getValidOption(Scanner input, String prompt) {
+    public static ValidFormat getValidFormat(Scanner input, String prompt) {
 
-        while(true) {
+        ValidFormat[] formats = ValidFormat.values();
+
+        System.out.println("Valid Formats:");
+        for (int i = 0; i < formats.length; i++) {
+            System.out.print(formats[i].getDisplayName());
+
+            if (i < formats.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
+
+        while (true) {
             System.out.print(prompt);
-            String value = input.nextLine().trim();
+            String line = input.nextLine().trim();
 
-            for(ValidFormat option : ValidFormat.values()) {
-                
-                if(option.getDisplayName().equalsIgnoreCase(value)) {
-                    return option;
+            if (line.isEmpty()) {
+                System.out.println("\nPlease enter a format.");
+                continue;
+            }
+
+            for (ValidFormat format : formats) {
+                if (format.getDisplayName().equalsIgnoreCase(line)) {
+                    return format;
                 }
             }
-            
-            System.out.println("\nInvalid option. Please enter a valid format:");
-            for (ValidFormat option : ValidFormat.values()) {
-                System.out.println("- " + option.getDisplayName());
-            }
+
+            System.out.println("\nInvalid format. Please try again.\n");
         }
     }
 
@@ -195,11 +217,10 @@ public class InputValidator {
      */
     //used for valid tags in addevents for eventmanageer
     public static ArrayList<ValidType> getValidTypes(Scanner input, String prompt) {
-        ArrayList<ValidType> types = new ArrayList<>();
-        boolean valid = false;
+        
+        ValidType[] validTypes = ValidType.values();
 
         System.out.println("Valid Types: " );
-        ValidType[] validTypes = ValidType.values();
 
         for (int i = 0; i < validTypes.length; i++){
             System.out.print(validTypes[i].getDisplayName());
@@ -211,13 +232,17 @@ public class InputValidator {
 
         System.out.println();
 
-        while(!valid) {
+        while(true) {
             System.out.print(prompt);
             String line = input.nextLine().trim();
-            String[] entered = line.split(",");//split the types at , because they should be entered as type, type, etc
 
-            types.clear();//reset if there was a retry
+            if(line.isEmpty()) {
+                System.out.println("\nPlease enter at least one type.");
+                continue;
+            }
 
+            String[] entered = line.split(",\\s*");
+            ArrayList<ValidType> temp = new ArrayList<>();
             boolean allValid = true;
 
             for(String tag: entered) {
@@ -226,7 +251,7 @@ public class InputValidator {
 
                 for(ValidType v: validTypes) {
                     if(v.getDisplayName().equalsIgnoreCase(trimmed)) {
-                        types.add(v);
+                        temp.add(v);
                         found = true;
                         break;
                     }
@@ -238,13 +263,73 @@ public class InputValidator {
                 }
             }
 
-            if(allValid && !types.isEmpty()) {
-                valid = true;
+            if(allValid && !temp.isEmpty()) {
+                return temp;
             }
-            else if(types.isEmpty()) {
-                System.out.println("\nPlease enter at least one type.");
+            
+            System.out.println("Please try again.\n");
+        }
+    }
+
+    /**
+     * Prompts the user to enter a date and validates that it is in the correct format (MM-dd-yyyy) and that it is not a past date. <br>
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @return
+     * The valid LocalDate input provided by the user. <br>
+     */
+    public static LocalDate getValidDate(Scanner input, String prompt) {
+
+        LocalDate date = null;
+
+        while (date == null) {
+
+            System.out.print(prompt);
+            String inputStr = input.nextLine().trim();
+
+            try {
+                date = LocalDate.parse(inputStr, dateFormatter);
+
+                if (date.isBefore(LocalDate.now())) {
+                    System.out.println("\nDate has already passed. Please enter a valid date.");
+                    date = null;
+                }
+
+            } catch (Exception e) {
+                System.out.println("\nInvalid Date Format. Please use MM-dd-yyyy...");
             }
         }
-        return types;
+
+        return date;
+    }
+
+    /**
+     * Prompts the user to enter a time and validates that it is in the correct format (HH:mm).
+     * @param input
+     * The Scanner object used to read user input.
+     * @param prompt
+     * The message displayed to the user when asking for input.
+     * @return
+     * The valid LocalTime input provided by the user.
+     */
+    public static LocalTime getValidTime(Scanner input, String prompt) {
+
+        LocalTime time = null;
+
+        while (time == null) {
+
+            System.out.print(prompt);
+            String inputStr = input.nextLine().trim();
+
+            try {
+                time = LocalTime.parse(inputStr, timeFormatter);
+            } catch (Exception e) {
+                System.out.println("\nInvalid Time Format. Please use HH:mm... (e.g. 14:30 for 2:30 PM)");
+            }
+        }
+
+        return time;
     }
 }

@@ -10,10 +10,6 @@ import java.util.Scanner;
 import theLocalLoop.Constants.ValidType;
 import theLocalLoop.Constants.ValidFormat;
 
-//DateTime Formatters
-import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
-import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
-
 /**
  * EventManager class handles the management of events in the application.
  */
@@ -253,8 +249,6 @@ public class EventManager {
         String name = ""; //name of event
         LocalDate date = null; //date of event
         LocalTime time = null; //time of event
-        String addDate = ""; //User date given
-        String addTime = ""; //User time given
         double duration = 0.0; //how long the event will last
         ArrayList<ValidType> types = new ArrayList<>(); //tags for the event
         ValidFormat format = null; //how the event will take place 
@@ -266,43 +260,10 @@ public class EventManager {
         name = InputValidator.getRequiredString(input, "Enter name of the event: ");
 
         //Enter date of event
-        //Keep asking for date until valid input    
-        while(date == null)
-        {
-          System.out.print("Enter event date (MM-dd-yyyy): ");
-          addDate = input.nextLine();
-          
-          try
-          {
-            date = LocalDate.parse(addDate, dateFormatter); //Parse Input
-
-            if(date.isBefore(LocalDate.now())) {
-                System.out.println("\nDate has already passed. Please enter a valid date.");
-                date = null;//set date back to null so that the loop can continue
-            }
-          }
-          catch(Exception e)
-          {
-            System.out.println("\nInvalid Date Format. Please use MM-dd-yyyy...");
-          }
-        }
+        date = InputValidator.getValidDate(input, "Enter event date (MM-dd-yyyy): ");
 
         //Enter time of event
-        //Keep asking for time until valid input
-        while(time == null)
-        {
-          System.out.print("Enter event time (HH:mm): ");
-          addTime = input.nextLine();
-
-          try
-          {
-            time = LocalTime.parse(addTime, timeFormatter); //Parse Input
-          }
-          catch(Exception e)
-          {
-            System.out.println("\nInvalid Time Format. Please use HH:mm...");
-          }
-        }
+        time = InputValidator.getValidTime(input, "Enter event time (HH:mm, e.g. 14:30 for 2:30 PM): ");
 
         //Enter duration of event
         duration = InputValidator.getValidDouble(input, "Enter event duration in hours (e.g. 1.5): ");
@@ -311,13 +272,13 @@ public class EventManager {
         types = InputValidator.getValidTypes(input, "Enter event types/tags (seperated by commas): ");
 
         //Enter format of event
-        format = InputValidator.getValidOption(input, "Enter the format (In person / Virtual / Hybrid): ");
+        format = InputValidator.getValidFormat(input, "Enter the format (In person / Virtual / Hybrid): ");
 
         //Enter organizer of event
         organizer = InputValidator.getRequiredString(input, "Enter the organizer of this event: ");
 
         //Enter password for event if needed
-        password = InputValidator.getValidPassword(input, "Enter a password for this event(or leave blank if not needed): ");
+        password = InputValidator.getValidPassword(input, "Enter a password for this event (or leave blank if not needed): ");
 
         //Enter location of event
         location = InputValidator.getRequiredString(input, "Enter location of this event: ");
@@ -337,28 +298,22 @@ public class EventManager {
      */
     public static void editEvent(LinkedList<Event> events, Scanner input){
     
+        boolean found = false;
         String nameOfEditedEvent = InputValidator.getRequiredString(input, "Enter the name of the event you want to edit: ");
 
         for (Event event : events){
             if (event.getName().equalsIgnoreCase(nameOfEditedEvent)){
-                int editChoice = 0;
-                boolean validEdit = false;
-                
-                while (!validEdit) {
-
-                    MenuManager.printEditMenu();
-                    editChoice = InputValidator.getValidInt(input, "Please enter your selection: ", 1, 9);
-                    
-                    if (editChoice >= 1 && editChoice <= 9){
-                        validEdit = true;
-                            
-                        String edit = InputValidator.getRequiredString(input, "Enter your edit: ");
-                        FileManager.editEvent(event, editChoice, edit);
-                    }
-                }
+                found = true;
+     
+                FileManager.editEvent(event, input);
                 
                 break;
             }
+        }
+
+        //If event is not found
+        if (!found) {
+            System.out.println("\nEvent not found.");
         }
     }
 
