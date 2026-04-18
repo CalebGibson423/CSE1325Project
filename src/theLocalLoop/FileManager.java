@@ -9,8 +9,8 @@ import theLocalLoop.Constants.ValidType;
 import theLocalLoop.Constants.ValidFormat;
 
 //DateTime Formatters
-import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
-import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
+import static theLocalLoop.Constants.DateTimeFormatters.DATE_FORMATTER;
+import static theLocalLoop.Constants.DateTimeFormatters.TIME_FORMATTER;
 
 /**
  * FileManager class for handling file input and output operations related to events. <br>
@@ -57,8 +57,8 @@ public class FileManager
                 //For each event, write event info in the following format
                 writer.write(
                     events.get(i).getName() + " | " +
-                    events.get(i).getDate().format(dateFormatter) + " | " +
-                    events.get(i).getTime().format(timeFormatter) + " | " +
+                    events.get(i).getDate().format(DATE_FORMATTER) + " | " +
+                    events.get(i).getTime().format(TIME_FORMATTER) + " | " +
                     events.get(i).getDuration() + " | " +
                     String.join(",", events.get(i).getTypes().stream().map(Enum::name).toList()) + " | " +
                     events.get(i).getFormat().name() + " | " +
@@ -106,8 +106,8 @@ public class FileManager
 
                 //Put event info into proper types
                 String name = eventParts[0];
-                LocalDate date = LocalDate.parse(eventParts[1], dateFormatter);
-                LocalTime time = LocalTime.parse(eventParts[2], timeFormatter);
+                LocalDate date = LocalDate.parse(eventParts[1], DATE_FORMATTER);
+                LocalTime time = LocalTime.parse(eventParts[2], TIME_FORMATTER);
                 double duration = Double.parseDouble(eventParts[3]);
 
                 //Handles the "types" list and puts all types into an ArrayList<ValidType>
@@ -240,12 +240,12 @@ public class FileManager
                         break;
 
                     case 2: // Edit date
-                        LocalDate newDate = LocalDate.parse(edit, dateFormatter);
+                        LocalDate newDate = LocalDate.parse(edit, DATE_FORMATTER);
                         current.setDate(newDate);
                         break;
 
                     case 3: // Edit time
-                        LocalTime newTime = LocalTime.parse(edit, timeFormatter);
+                        LocalTime newTime = LocalTime.parse(edit, TIME_FORMATTER);
                         current.setTime(newTime);
                         break;
 

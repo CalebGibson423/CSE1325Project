@@ -29,19 +29,19 @@ public class Constants {
         /**
          * Public static final DateTimeFormatter for formatting dates in the pattern "MM-dd-yyyy"
          */
-        public static final DateTimeFormatter dateFormatter = 
+        public static final DateTimeFormatter DATE_FORMATTER = 
             DateTimeFormatter.ofPattern("MM-dd-yyyy");
         
         /**
          * Public static final DateTimeFormatter for formatting times in the pattern "HH:mm"
          */
-        public static final DateTimeFormatter timeFormatter = 
+        public static final DateTimeFormatter TIME_FORMATTER = 
             DateTimeFormatter.ofPattern("HH:mm");  
         
         /**
          * Public static final DateTimeFormatter for formatting months and years in the pattern "MM-yyyy"
          */
-        public static final DateTimeFormatter monthYearFormatter = 
+        public static final DateTimeFormatter MONTH_YEAR_FORMATTER = 
             DateTimeFormatter.ofPattern("MM-yyyy");
     }
 

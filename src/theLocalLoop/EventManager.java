@@ -11,8 +11,8 @@ import theLocalLoop.Constants.ValidType;
 import theLocalLoop.Constants.ValidFormat;
 
 //DateTime Formatters
-import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
-import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
+import static theLocalLoop.Constants.DateTimeFormatters.DATE_FORMATTER;
+import static theLocalLoop.Constants.DateTimeFormatters.TIME_FORMATTER;
 
 /**
  * EventManager class handles the management of events in the application.
@@ -274,7 +274,7 @@ public class EventManager {
           
           try
           {
-            date = LocalDate.parse(addDate, dateFormatter); //Parse Input
+            date = LocalDate.parse(addDate, DATE_FORMATTER); //Parse Input
 
             if(date.isBefore(LocalDate.now())) {
                 System.out.println("\nDate has already passed. Please enter a valid date.");
@@ -296,7 +296,7 @@ public class EventManager {
 
           try
           {
-            time = LocalTime.parse(addTime, timeFormatter); //Parse Input
+            time = LocalTime.parse(addTime, TIME_FORMATTER); //Parse Input
           }
           catch(Exception e)
           {

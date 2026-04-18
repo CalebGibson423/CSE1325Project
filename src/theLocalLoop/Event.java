@@ -7,8 +7,8 @@ import theLocalLoop.Constants.ValidType;
 import theLocalLoop.Constants.ValidFormat;
 
 //DateTime Formatters
-import static theLocalLoop.Constants.DateTimeFormatters.dateFormatter;
-import static theLocalLoop.Constants.DateTimeFormatters.timeFormatter;
+import static theLocalLoop.Constants.DateTimeFormatters.DATE_FORMATTER;
+import static theLocalLoop.Constants.DateTimeFormatters.TIME_FORMATTER;
 
 /**
  * Event class representing a single event in the application. <br>
@@ -279,8 +279,8 @@ public class Event
 
         String eventInfo = (
             "Name: " + name + "\n" + 
-            "Date: " + date.format(dateFormatter) + "\n" +
-            "Time: " + time.format(timeFormatter) + "\n" +
+            "Date: " + date.format(DATE_FORMATTER) + "\n" +
+            "Time: " + time.format(TIME_FORMATTER) + "\n" +
             "Duration: " + duration + " hours\n" +
             "Type(s): " + eventTypes + "\n" +
             "Format: " + formatName + "\n" +
@@ -305,7 +305,7 @@ public class Event
         }
 
         String eventSummary = (
-            name + " on " + date.format(dateFormatter) + " at " + time.format(timeFormatter) + " for " + duration + " hours\n" +
+            name + " on " + date.format(DATE_FORMATTER) + " at " + time.format(TIME_FORMATTER) + " for " + duration + " hours\n" +
             "Format: " + formatName + "\n" +
             "Organizer(s): " + organizer + "\n" +
             "Location: " + location + "\n");
