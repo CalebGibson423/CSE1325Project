@@ -1,0 +1,254 @@
+@startuml
+
+title The Local Loop - UML Class Diagram
+
+' =========================
+' ENUMS
+' =========================
+
+enum ValidType{
+ART
+BUSINESS
+CODING
+CULTURE
+COMMUNITY
+DISCUSSION
+EDUCATION
+ESPORTS
+FESTIVAL
+FITNESS
+FOOD
+GAMING
+HACKATHON
+MUSIC
+NETWORKING
+PHOTOGRAPHY
+READING
+SOCIAL
+STARTUP
+TECHNOLOGY
+VOLUNTEERING
+WELLNESS
+
+- displayName : String
+
++ ValidType(displayName : String)
+
++ getDisplayName() : String
++ fromString(input : String) : ValidType
+}
+
+enum ValidFormat{
+IN_PERSON
+ONLINE
+HYBRID
+
+- displayName : String
+
++ ValidFormat(String DisplayName)
+
++ getDisplayName() : String
+}
+
+' =========================
+' CONSTANTS CLASS
+' =========================
+
+class Constants{
+- Constants() : void
+}
+
+' =========================
+' EVENT CLASS
+' =========================
+
+class Event{
+- name : String
+- date : LocalDate
+- time : LocalTime
+- duration : double
+- types : Arraylist<ValidType>
+- format : ValidFormat
+- organizer : String
+- password : String
+- location : String
+
++ Event(String, LocalDate, LocalTime, double, ArrayList<ValidTypes>, ValidFormat, String, String, String)
+
++ getName() : String
++ getDate() : LocalDate
++ getTime() : LocalTime
++ getDuration : double
++ getTypes() : Araylist<ValidType>
++ getFormat() : ValidFormat
++ getOrganizer() : String
++ getPassword() : String
++ getLocation() : String
++ setName(newName : String) : void
++ setDate(newDate : LocalDate) : void
++ setTime(newTime : LocalTime) : void
++ setDuration(newDuration : double) : void
++ setTypes(newTypes : ArrayList<ValidType>) : void
++ setFormat(newFormat : ValidFormat) : void
++ setOrganizer(newOrganizer : String) : void
++ setPassword(newPassword : String) : void
++ setLocation(newLocation : String) : void
++ toString() : String
++ toSummaryString() : String
++ equals(obj : Object) : boolean
+}
+
+' =========================
+' EVENT MANAGER CLASS
+' =========================
+
+class EventManager{
+- EventManager()
+
++ displayChoice(LinkedList<Event>, Scanner) : void
++ displayEvents(int, LinkedList<Event>, Scanner) : void
++ SearchEvents(LinkedList<Event>, Scanner) : void
++ filterAndSortEvents(LinkedList<Event>, Scanner) : void
++ addEvent(LinkedList<Event>, Scanner) : void
++ editEvent(LinkedList<Event>, Scanner) : void
++ deleteEvent(LinkedList<Event>, Scanner) : void
+}
+
+' =========================
+' FILE MANAGER CLASS
+' =========================
+
+class FileManager{
++ FILE_NAME : String
+
+- FileManager()
+
++ SaveEvents(LinkedList<Event>) : void
++ loadEvents() : LinkedList<Event>
++ addEvent(Event) : LinkedList<Event>
++ deleteEvent(Event) : void
++ editEvent(Event, Scanner) : void
+}
+
+' =========================
+' INPUT VALIDATOR CLASS
+' =========================
+
+class InputValidator{
+- InputValidator()
+
++ getValidInt(Scanner, String, int, int) : int
++ getValidDouble(Scanner, String) : double
++ getRequiredString(Scanner, String) : String
++ getValidFormat(Scanner, String) : ValidFormat
++ getValidPassword(Scanner, String) : String
++ getValidTypes(Scanner, String) : ArrayList<ValidType>
++ getValidDate(Scanner, String) : LocalDate
++ getValidTime(Scanner, String) : LocalTime
+}
+
+' =========================
+' MAIN CLASS
+' =========================
+
+class Main{
++ input : Scanner
+
+- Main()
+
++ main(String[] args) : void
+}
+
+' =========================
+' MENU MANAGER CLASS
+' =========================
+
+class MenuManager{
+- MenuManager()
+
++ printMenu() : void
++ printDisplayMenu() : void
++ printFilterMenu() : void
++ printSortMenu() : void
++ printEditMenu() : void
++ handleChoice(int, Scanner, LinkedList<Event>) : void
+}
+
+' =========================
+' SORT CLASS
+' =========================
+
+class Sort{
+- nameCompare : Comparator<Event>
+- dateTimeCompare : Comparator<Event>
+- organizerCompare : Comparator<Event>
+- durationCompare : Comparator<Event>
+
+- Sort()
+
++ sortAndFilter(LinkedList<Event>, int, int, Scanner) : LinkedList<Event>
++ sortByName(LinkedList<Event>) : void
++ sortByDateTime(LinkedList<Event>) : void
++ sortByOrganizer(LinkedList<Event>) : void
++ sortByDuration(LinkedList<Event>) : void
++ filterByType(LinkedList<Event>, String) : LinkedList<Event>
++ filterByOrganizer(LinkedList<Event>, String) : LinkedList<Event>
++ filterByFormat(LinkedList<Event>, String) : LinkedList<Event>
+}
+
+' =========================
+' TEST DATA CLASS
+' =========================
+
+class TestData{
++ loadSampleEvents(LinkedList<Event>) : void
+}
+
+' =========================
+' RELATIONSHIPS
+' =========================
+
+EventManager "1" o-- "*" Event
+FileManager "1" o-- "*" Event
+
+Constants +-- DateTimeFormatters
+Constants +-- ValidType
+Constants +-- ValidFormat
+Constants <-- Event
+Constants <-- EventManager
+Constants <-- FileManager
+Constants <-- InputValidator
+Constants <-- Sort
+Constants <-- TestData
+
+Event <-- Main
+Event <-- MenuManager
+Event <-- Sort
+Event <-- TestData
+
+EventManager <-- Constants
+EventManager <-- FileManager
+EventManager <-- InputValidator
+EventManager <-- Main
+EventManager <-- MenuManager
+EventManager <-- Sort
+EventManager <-- TestData
+
+FileManager <-- EventManager
+FileManager <-- Main
+
+InputValidator <-- EventManager
+InputValidator <-- FileManager
+InputValidator <-- Main
+InputValidator <-- Sort
+
+MenuManager <-- EventManager
+MenuManager <-- FileManager
+MenuManager <-- Main
+
+Sort <-- EventManager
+Sort <-- FileManager
+
+TestData <-- Main
+
+@enduml
