@@ -4,7 +4,11 @@ A community based app where people can view community events in their area. User
 
 ## PlantUML Class Diagram
 
-![TheLocalLoopClassDiagram](https://github.com/CalebGibson423/CSE1325Project/blob/main/UMLClassDiagram.png)
+![TheLocalLoopClassDiagram](diagrams\UMLClassDiagram.png)
+
+## PlantUML Project Architecture Diagram
+
+![TheLocalLoopProjectArchitecture](diagrams\ProjectArchitectureDiagram.png)
 
 ## JavaDoc Documentation
 
@@ -16,6 +20,7 @@ A community based app where people can view community events in their area. User
    ```
 
 ## Folder Structure
+- `diagrams` : UML Class diagram and project Architecture files
 - `docs`: Javadoc files
 - `src`: java files
 - `bin`: compiled files
