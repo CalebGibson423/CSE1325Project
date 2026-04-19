@@ -285,7 +285,9 @@ public class EventManager {
 
         //Create new event object and add to list
         Event newEvent = new Event(name, date, time, duration, types, format, organizer, password, location);
-        events.add(newEvent);
+        //events.add(newEvent);
+        FileManager.addEvent(newEvent);
+        System.out.println("Event successfully added!");
 
     }
 

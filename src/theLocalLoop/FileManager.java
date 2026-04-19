@@ -169,8 +169,17 @@ public class FileManager
         LinkedList<Event> updatedEvents = loadEvents();
         //Get dateTime of event
         LocalDateTime eventDateTime = LocalDateTime.of(event.getDate(), event.getTime());
+        //Get user date
+        LocalDateTime now = LocalDateTime.now();
 
         boolean eventAdded = false;
+
+        //Don't add events that pass
+        if(event.getDate().isBefore(LocalDate.now()))
+        {
+            System.out.println("\nCannot add event. Date has already passed.");
+            return updatedEvents;  
+        }
 
         //Iterate through all events
         for(int i=0; i < updatedEvents.size(); i++)
@@ -188,6 +197,7 @@ public class FileManager
                 eventAdded = true;
                 break;
             }
+            
         }
 
         //Add event at the end if list is empty or event is the latest time and date
@@ -315,7 +325,11 @@ public class FileManager
                 event.setLocation(newLocation);
                 System.out.println("\nEvent location updated successfully to '" + newLocation + "'.");
                 break;
-            }    
+            }  
+
+            //Update File
+            deleteEvent(event);
+            addEvent(event);  
         }
     }
 }

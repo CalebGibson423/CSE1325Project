@@ -42,6 +42,7 @@ public class Main
     int choice = 0;
     while(choice != 7)
     {
+      eventList = FileManager.loadEvents(); 
       MenuManager.printMenu(); //Print menu options
       choice = InputValidator.getValidInt(input, "Please enter your selection: ", 1, 7);
       
