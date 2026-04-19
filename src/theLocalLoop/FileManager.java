@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.time.*;
+import java.util.stream.Collectors;
 
 //Valid Types and Formats
 import theLocalLoop.Constants.ValidType;
@@ -61,7 +62,7 @@ public class FileManager
                     events.get(i).getDate().format(dateFormatter) + " | " +
                     events.get(i).getTime().format(timeFormatter) + " | " +
                     events.get(i).getDuration() + " | " +
-                    String.join(",", events.get(i).getTypes().stream().map(Enum::name).toList()) + " | " +
+                    String.join(",", events.get(i).getTypes().stream().map(Enum::name).collect(Collectors.toList())) + " | " +
                     events.get(i).getFormat().name() + " | " +
                     events.get(i).getOrganizer() + " | " + 
                     password + " | " +
@@ -281,7 +282,7 @@ public class FileManager
                 ArrayList<ValidType> newTypes = InputValidator.getValidTypes(input, "Enter the new types/tags (separated by commas): ");
 
                 event.setTypes(newTypes);
-                System.out.println("\nEvent types updated successfully to '" + String.join(", ", newTypes.stream().map(Enum::name).toList()) + "'.");
+                System.out.println("\nEvent types updated successfully to '" + String.join(", ", newTypes.stream().map(Enum::name).collect(Collectors.toList())) + "'.");
                 break;
 
             case 6: // Edit format
