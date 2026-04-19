@@ -370,5 +370,4 @@ public class EventManager {
         System.out.println("\nEvent not found.");
         }
     }
-
 }

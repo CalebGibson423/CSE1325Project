@@ -1,0 +1,62 @@
+@startuml
+left to right direction
+title The Local Loop - Project Architecture Diagram
+
+'=========================
+' USERS
+'=========================
+
+actor "Regular User" as User
+
+'=========================
+' INTERFACE LAYER
+'=========================
+
+rectangle "Console Interface Layer" {
+
+component "Main Menu" as Main
+component "Menu Manager" as Menu
+}
+
+'=========================
+' APPLICATION LOGIC LAYER
+'=========================
+
+rectangle "Application Logic Layer" {
+
+component "Event Manager" as EventManager
+component "Input Validation" as InputValidation
+component "Sorting & Filtering" as Sort
+component "Password Validation" as PasswordValidation
+
+}
+
+'=========================
+' DATA LAYER
+'=========================
+
+rectangle "Data Management Layer" {
+
+component "File Manager" as FileManager
+component "Event Objects\n(Event.java)" as Event
+database "Event Storage\n(events.txt)" as DB
+}
+
+'=========================
+' USER INTERACTION FLOW
+'=========================
+
+User --> Main
+
+Main --> Menu
+Menu --> EventManager
+
+EventManager --> InputValidation
+EventManager --> PasswordValidation
+EventManager --> Sort
+EventManager --> FileManager
+EventManager --> Event
+
+FileManager --> DB
+DB --> FileManager
+@enduml
