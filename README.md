@@ -2,6 +2,10 @@
 
 A community based app where people can view community events in their area. Users can add, view, sort, and even delete events.
 
+## PlantUML Class Diagram
+
+![TheLocalLoopClassDiagram](https://github.com/CalebGibson423/CSE1325Project/blob/main/UMLClassDiagram.png)
+
 ## JavaDoc Documentation
 
 [Javadoc Index for theLocalLoop](https://calebgibson423.github.io/CSE1325Project/)
