@@ -88,11 +88,23 @@ public class FileManager
      */
     public static LinkedList<Event> loadEvents()
     {
+
+        LinkedList<Event> events = new LinkedList<Event>();
+        File file = new File(FILE_NAME);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            }
+            catch (IOException e) {
+                System.out.println("\nError creating events file.");
+                return events;
+            }
+        }
+
         //Try open file
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) 
         {
-            
-            LinkedList<Event> events = new LinkedList<Event>();
 
             String line;
             //Reads the file line by line
@@ -169,8 +181,6 @@ public class FileManager
         LinkedList<Event> updatedEvents = loadEvents();
         //Get dateTime of event
         LocalDateTime eventDateTime = LocalDateTime.of(event.getDate(), event.getTime());
-        //Get user date
-        LocalDateTime now = LocalDateTime.now();
 
         boolean eventAdded = false;
 
