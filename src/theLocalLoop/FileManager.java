@@ -252,13 +252,29 @@ public class FileManager
             System.out.println("\nPassword accepted. You may now edit the event.");
         }
 
-        while(editing){
+        //Create new event to update
+        Event updatedEvent = new Event(
+            event.getName(),
+            event.getDate(),
+            event.getTime(),
+            event.getDuration(),
+            new ArrayList<>(event.getTypes()),
+            event.getFormat(),
+            event.getOrganizer(),
+            event.getPassword(),
+            event.getLocation());
+
+        while(editing)
+        {
 
             MenuManager.printEditMenu();
             int choice = InputValidator.getValidInt(input, "Please enter your selection (10 to finish editing): ", 1, 10);
             
             if(choice == 10){
                 editing = false;
+                //Update File
+                deleteEvent(event);
+                addEvent(updatedEvent);
                 System.out.println("\nFinished editing event.");
                 continue;
             }
@@ -266,52 +282,52 @@ public class FileManager
             switch (choice){
             case 1: // Edit name
                 String newName = InputValidator.getRequiredString(input, "Enter the new name: ");
-                event.setName(newName);
+                updatedEvent.setName(newName);
                 System.out.println("\nEvent name updated successfully to '" + newName + "'.");
                 break;
 
             case 2: // Edit date
                 LocalDate newDate = InputValidator.getValidDate(input, "Enter the new date (MM-dd-yyyy): ");
-                event.setDate(newDate);
+                updatedEvent.setDate(newDate);
                 System.out.println("\nEvent date updated successfully to '" + newDate.format(dateFormatter) + "'.");
                 break;
 
             case 3: // Edit time
                 LocalTime newTime = InputValidator.getValidTime(input, "Enter the new time (HH:mm, e.g. 14:30 for 2:30 PM): ");
-                event.setTime(newTime);
+                updatedEvent.setTime(newTime);
                 System.out.println("\nEvent time updated successfully to '" + newTime.format(timeFormatter) + "'.");
                 break;
 
             case 4: // Edit duration
                 double newDuration = InputValidator.getValidDouble(input, "Enter the new duration in hours (e.g. 1.5): ");
-                event.setDuration(newDuration);
+                updatedEvent.setDuration(newDuration);
                 System.out.println("\nEvent duration updated successfully to '" + newDuration + " hours'.");
                 break;
 
             case 5: // Edit types
                 ArrayList<ValidType> newTypes = InputValidator.getValidTypes(input, "Enter the new types/tags (separated by commas): ");
 
-                event.setTypes(newTypes);
+                updatedEvent.setTypes(newTypes);
                 System.out.println("\nEvent types updated successfully to '" + String.join(", ", newTypes.stream().map(Enum::name).collect(Collectors.toList())) + "'.");
                 break;
 
             case 6: // Edit format
                 ValidFormat newFormat = InputValidator.getValidFormat(input, "Enter the new format (In person / Virtual / Hybrid): ");
 
-                event.setFormat(newFormat);
+                updatedEvent.setFormat(newFormat);
                 System.out.println("\nEvent format updated successfully to '" + newFormat.name() + "'.");
                 break;
 
             case 7: // Edit Organizer
                 String newOrganizer = InputValidator.getRequiredString(input, "Enter the new organizer: ");
-                event.setOrganizer(newOrganizer);
+                updatedEvent.setOrganizer(newOrganizer);
                 System.out.println("\nEvent organizer updated successfully to '" + newOrganizer + "'.");
                 break;
 
             case 8: // Edit password
                 
                 String newPassword = InputValidator.getValidPassword(input, "Enter the new password (or leave blank if not needed): ");
-                event.setPassword(newPassword);
+                updatedEvent.setPassword(newPassword);
                 
                 if(newPassword.isEmpty()) {
                     newPassword = "N/A";
@@ -322,14 +338,10 @@ public class FileManager
 
             case 9: // Edit location
                 String newLocation = InputValidator.getRequiredString(input, "Enter the new location: ");
-                event.setLocation(newLocation);
+                updatedEvent.setLocation(newLocation);
                 System.out.println("\nEvent location updated successfully to '" + newLocation + "'.");
                 break;
             }  
-
-            //Update File
-            deleteEvent(event);
-            addEvent(event);  
         }
     }
 }
