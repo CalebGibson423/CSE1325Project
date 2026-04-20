@@ -190,7 +190,7 @@ public class EventManager {
         //search through events to find event with the same name and display its details
         for(Event e: events){
 
-            if(eventName.equalsIgnoreCase(e.getName())){     
+            if(e.getName().trim().equalsIgnoreCase(eventName.trim())){     
                 found = true;
                 
                 System.out.println("\n--- Event(s) Found ---");
