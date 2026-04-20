@@ -350,6 +350,7 @@ public class EventManager {
                     //If password is correct, delete event
                     if(password.equals(current.getPassword())){
                         events.remove(i);
+                        FileManager.deleteEvent(current);
                         System.out.println("\nEvent deleted successfully.");
                     }
                     //If password is incorrect, do not delete event 
@@ -360,6 +361,7 @@ public class EventManager {
                 //If event is not password protected, delete event
                 else{
                     events.remove(i);
+                    FileManager.deleteEvent(current);
                     System.out.println("\nEvent deleted successfully.");
                 }
 
