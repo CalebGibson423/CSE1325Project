@@ -269,7 +269,7 @@ public class EventManager {
         duration = InputValidator.getValidDouble(input, "Enter event duration in hours (e.g. 1.5): ");
 
         //Enter types for event
-        types = InputValidator.getValidTypes(input, "Enter event types/tags (seperated by commas): ");
+        types = InputValidator.getValidTypes(input, "Enter event types/tags (separated by commas): ");
 
         //Enter format of event
         format = InputValidator.getValidFormat(input, "Enter the format (In person / Virtual / Hybrid): ");
