@@ -76,7 +76,7 @@ public class MenuManager {
     System.out.println("7. Organizer");
     System.out.println("8. Password");
     System.out.println("9. Location");
-    System.out.println("10. Cancel");
+    System.out.println("10. Exit");
   }
 
   /**

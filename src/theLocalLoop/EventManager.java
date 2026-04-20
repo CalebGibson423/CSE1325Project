@@ -285,7 +285,9 @@ public class EventManager {
 
         //Create new event object and add to list
         Event newEvent = new Event(name, date, time, duration, types, format, organizer, password, location);
-        events.add(newEvent);
+        //events.add(newEvent);
+        FileManager.addEvent(newEvent);
+        System.out.println("Event successfully added!");
 
     }
 
@@ -348,6 +350,7 @@ public class EventManager {
                     //If password is correct, delete event
                     if(password.equals(current.getPassword())){
                         events.remove(i);
+                        FileManager.deleteEvent(current);
                         System.out.println("\nEvent deleted successfully.");
                     }
                     //If password is incorrect, do not delete event 
@@ -358,6 +361,7 @@ public class EventManager {
                 //If event is not password protected, delete event
                 else{
                     events.remove(i);
+                    FileManager.deleteEvent(current);
                     System.out.println("\nEvent deleted successfully.");
                 }
 
